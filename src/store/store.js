@@ -21,21 +21,26 @@ export const store = new Vuex.Store({
     },
     actions: {
         isConnected({ commit }, payload) {
-            db.collection("users").add({ id: payload.id, name: payload.name, avatar: payload.avatar })
+            db.collection("users").doc(payload.id.toString()).set({ name: payload.name, avatar: payload.avatar })
             commit(IS_CONNECTED, true)
             commit(IS_CURRENT_USER, payload.id)
         },
-        fetchUsers() {
+        fetchUsers({ commit }) {
             db.collection("users").onSnapshot(querySnapshot => {
                 let usersArray = []
 
                 querySnapshot.forEach(doc => {
                     let user = doc.data()
+                    user.id = doc.id
                     usersArray.push(user)
                 })
 
-                store.commit(SET_USERS, usersArray)
+                commit(SET_USERS, usersArray)
             })
+        },
+        disconnectUser({ commit }, payload) {
+            db.collection("users").doc(payload.id.toString()).delete()
+            commit(IS_CONNECTED, false)
         }
     },
     mutations: {

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="text-center container-start" align="center" justify="center">
-      <h1>Salon</h1>
+      <h1 @click="disconnectUser">Salon</h1>
       <listUsers />
     </v-row>
   </v-container>
@@ -26,6 +26,7 @@ export default {
   },
   methods: {
     disconnectUser() {
+      console.log("oui");
       this.$store.dispatch("disconnectUser", {
         id: this.currentUser
       });
