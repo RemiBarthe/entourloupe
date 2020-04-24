@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 
 import App from './App.vue'
 import { store } from './store/store'
+import './firebase'
 
 
 Vue.config.productionTip = false
