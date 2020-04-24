@@ -5,6 +5,8 @@ import { db } from "../firebase"
 
 export const IS_CONNECTED = 'IS_CONNECTED'
 export const IS_CURRENT_USER = 'IS_CURRENT_USER'
+export const SET_USERS = 'SET_USERS'
+
 
 Vue.use(Vuex)
 
@@ -15,19 +17,25 @@ export const store = new Vuex.Store({
         users: []
     },
     getters: {
-        getAllUsers() {
-            db.collection("users").get().then((querySnapshot) => {
-                querySnapshot.forEach((user) => {
-                    console.log(user.data())
-                })
-            })
-        }
+
     },
     actions: {
         isConnected({ commit }, payload) {
             db.collection("users").add({ id: payload.id, name: payload.name, avatar: payload.avatar })
             commit(IS_CONNECTED, true)
             commit(IS_CURRENT_USER, payload.id)
+        },
+        fetchUsers() {
+            db.collection("users").onSnapshot(querySnapshot => {
+                let usersArray = []
+
+                querySnapshot.forEach(doc => {
+                    let user = doc.data()
+                    usersArray.push(user)
+                })
+
+                store.commit(SET_USERS, usersArray)
+            })
         }
     },
     mutations: {
@@ -36,6 +44,9 @@ export const store = new Vuex.Store({
         },
         [IS_CURRENT_USER](state, payload) {
             state.currentUser = payload
+        },
+        [SET_USERS](state, payload) {
+            state.users = payload
         }
     }
 })

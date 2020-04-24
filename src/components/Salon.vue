@@ -20,6 +20,16 @@ export default {
   },
   computed: {
     ...mapState(["currentUser"])
+  },
+  created() {
+    window.addEventListener("beforeunload", this.disconnectUser);
+  },
+  methods: {
+    disconnectUser() {
+      this.$store.dispatch("disconnectUser", {
+        id: this.currentUser
+      });
+    }
   }
 };
 </script>

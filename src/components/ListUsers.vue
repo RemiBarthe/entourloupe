@@ -26,10 +26,7 @@ export default {
     // users: []
   }),
   computed: {
-    ...mapState(["currentUser"]),
-    users() {
-      return this.$store.getters["getAllUsers"];
-    }
+    ...mapState(["currentUser", "users"])
   },
   created() {}
 };
