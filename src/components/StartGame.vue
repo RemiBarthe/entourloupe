@@ -2,11 +2,18 @@
   <v-container class="container-start" align="center" justify="center">
     <v-card class="mx-auto" max-width="500">
       <v-card-title>
-        <h2 class="display-1">Limitelimite maison</h2>
+        <h2 class="display-1">Jeu confinement</h2>
       </v-card-title>
 
       <v-card-text>
-        <v-text-field label="Ton nom" v-model="name" />
+        <v-text-field label="Ton nom" v-model="nameUser" />
+      </v-card-text>
+
+      <v-card-text>
+        <v-text-field
+          label="Code de la partie à rejoindre"
+          v-model="codeRoom"
+        />
       </v-card-text>
 
       <v-card-text>
@@ -25,8 +32,14 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn block color="primary" @click="connect" :disabled="isValid">
-          Valider
+        <v-btn block color="primary" @click="createRoom" :disabled="!isValid">
+          Créer partie
+        </v-btn>
+      </v-card-actions>
+
+      <v-card-actions>
+        <v-btn block color="primary" @click="joinRoom" :disabled="!isValidRoom">
+          Rejoindre partie
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -38,7 +51,8 @@ export default {
   name: "StartGame",
 
   data: () => ({
-    name,
+    nameUser: null,
+    codeRoom: null,
     avatarSelected: "mdi-dice-6",
     avatars: [
       "mdi-account",
@@ -69,21 +83,28 @@ export default {
   }),
   computed: {
     isValid() {
-      if (!this.name) {
+      if (this.nameUser) {
+        return true;
+      }
+      return false;
+    },
+    isValidRoom() {
+      if (this.nameUser && this.codeRoom) {
         return true;
       }
       return false;
     }
   },
   methods: {
-    connect() {
+    createRoom() {
       const idUser = Date.now();
       this.$store.dispatch("isConnected", {
         id: idUser,
-        name: this.name,
+        name: this.nameUser,
         avatar: this.avatars[this.avatarSelected]
       });
-    }
+    },
+    joinRoom() {}
   }
 };
 </script>
