@@ -1,4 +1,4 @@
-# jds
+# jeu-confinement
 
 ## Project setup
 ```
