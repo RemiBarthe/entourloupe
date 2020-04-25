@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
     state: {
         currentUser: null,
         currentRoom: null,
+        isHost: null,
         users: []
     },
     getters: {
@@ -24,7 +25,7 @@ export const store = new Vuex.Store({
             const idUser = payload.id.toString()
 
             db.collection("rooms").doc(idRoom).collection("users").doc(idUser).set({ name: payload.name, avatar: payload.avatar })
-            commit(IS_CURRENT_USER, { id: payload.id, idRoom: payload.idRoom })
+            commit(IS_CURRENT_USER, { id: payload.id, idRoom: payload.idRoom, isHost: payload.isHost })
 
             db.collection("rooms").doc(idRoom).collection("users").onSnapshot(querySnapshot => {
                 let usersArray = []
@@ -50,6 +51,7 @@ export const store = new Vuex.Store({
         [IS_CURRENT_USER](state, payload) {
             state.currentUser = payload.id
             state.currentRoom = payload.idRoom
+            state.isHost = payload.isHost
         },
         [SET_USERS](state, payload) {
             state.users = payload

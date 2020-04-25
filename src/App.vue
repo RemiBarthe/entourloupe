@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-content>
-      <salon v-if="currentUser" />
+    <v-content style="background-color:#f4f4f4">
+      <room v-if="currentUser" />
       <startGame v-else />
     </v-content>
   </v-app>
@@ -9,7 +9,7 @@
 
 <script>
 import StartGame from "./components/StartGame";
-import Salon from "./components/Salon";
+import Room from "./components/Room";
 import { mapState } from "vuex";
 
 export default {
@@ -18,7 +18,7 @@ export default {
   data: () => ({}),
   components: {
     StartGame,
-    Salon
+    Room
   },
   created() {},
   computed: {

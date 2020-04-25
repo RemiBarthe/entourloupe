@@ -1,5 +1,5 @@
 <template>
-  <v-container class="container-start" align="center" justify="center">
+  <v-container class="container-start">
     <v-card class="mx-auto" max-width="500">
       <v-card-title>
         <h2 class="display-1">Jeu confinement</h2>
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { Avatars } from "../assets/avatars.js";
+
 export default {
   name: "StartGame",
 
@@ -52,32 +54,7 @@ export default {
     idRoom: null,
     idUser: Date.now(),
     avatarSelected: "mdi-dice-6",
-    avatars: [
-      "mdi-account",
-      "mdi-emoticon-devil",
-      "mdi-emoticon-cool",
-      "mdi-emoticon-sad",
-      "mdi-emoticon-kiss",
-      "mdi-alien",
-      "mdi-apple",
-      "mdi-flask",
-      "mdi-baby",
-      "mdi-bacteria",
-      "mdi-baguette",
-      "mdi-skull-crossbones",
-      "mdi-basketball",
-      "mdi-bat",
-      "mdi-ice-cream",
-      "mdi-bug",
-      "mdi-cannabis",
-      "mdi-jellyfish",
-      "mdi-cards-heart",
-      "mdi-microsoft-internet-explorer",
-      "mdi-cat",
-      "mdi-chess-king",
-      "mdi-dice-6",
-      "mdi-dice-d20"
-    ]
+    avatars: Avatars
   }),
   computed: {
     isValid() {
@@ -99,7 +76,8 @@ export default {
         id: this.idUser,
         name: this.nameUser,
         avatar: this.avatars[this.avatarSelected],
-        idRoom: this.idRoom ? this.idRoom : this.idUser
+        idRoom: this.idRoom ? this.idRoom : this.idUser,
+        isHost: !this.idRoom
       });
     }
   }
