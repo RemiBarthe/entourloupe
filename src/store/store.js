@@ -12,18 +12,21 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
     state: {
         currentUser: null,
+        currentRoom: null,
         users: []
     },
     getters: {
 
     },
     actions: {
-        isConnected({ commit }, payload) {
-            db.collection("users").doc(payload.id.toString()).set({ name: payload.name, avatar: payload.avatar })
-            commit(IS_CURRENT_USER, payload.id)
-        },
-        fetchUsers({ commit }) {
-            db.collection("users").onSnapshot(querySnapshot => {
+        joinRoom({ commit }, payload) {
+            const idRoom = payload.idRoom.toString()
+            const idUser = payload.id.toString()
+
+            db.collection("rooms").doc(idRoom).collection("users").doc(idUser).set({ name: payload.name, avatar: payload.avatar })
+            commit(IS_CURRENT_USER, { id: payload.id, idRoom: payload.idRoom })
+
+            db.collection("rooms").doc(idRoom).collection("users").onSnapshot(querySnapshot => {
                 let usersArray = []
 
                 querySnapshot.forEach(doc => {
@@ -36,13 +39,17 @@ export const store = new Vuex.Store({
             })
         },
         disconnectUser({ commit }, payload) {
-            db.collection("users").doc(payload.id.toString()).delete()
+            const idRoom = payload.idRoom.toString()
+            const idUser = payload.id.toString()
+
+            db.collection("rooms").doc(idRoom).collection("users").doc(idUser).delete()
             commit(IS_CURRENT_USER, null)
         }
     },
     mutations: {
         [IS_CURRENT_USER](state, payload) {
-            state.currentUser = payload
+            state.currentUser = payload.id
+            state.currentRoom = payload.idRoom
         },
         [SET_USERS](state, payload) {
             state.users = payload

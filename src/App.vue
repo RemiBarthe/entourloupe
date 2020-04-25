@@ -20,9 +20,7 @@ export default {
     StartGame,
     Salon
   },
-  created() {
-    this.$store.dispatch("fetchUsers");
-  },
+  created() {},
   computed: {
     ...mapState(["currentUser"])
   }

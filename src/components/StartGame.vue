@@ -10,10 +10,7 @@
       </v-card-text>
 
       <v-card-text>
-        <v-text-field
-          label="Code de la partie à rejoindre"
-          v-model="codeRoom"
-        />
+        <v-text-field label="Code de la partie à rejoindre" v-model="idRoom" />
       </v-card-text>
 
       <v-card-text>
@@ -32,7 +29,7 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn block color="primary" @click="createRoom" :disabled="!isValid">
+        <v-btn block color="primary" @click="joinRoom" :disabled="!isValid">
           Créer partie
         </v-btn>
       </v-card-actions>
@@ -52,7 +49,8 @@ export default {
 
   data: () => ({
     nameUser: null,
-    codeRoom: null,
+    idRoom: null,
+    idUser: Date.now(),
     avatarSelected: "mdi-dice-6",
     avatars: [
       "mdi-account",
@@ -83,28 +81,27 @@ export default {
   }),
   computed: {
     isValid() {
-      if (this.nameUser) {
+      if (this.nameUser && !this.idRoom) {
         return true;
       }
       return false;
     },
     isValidRoom() {
-      if (this.nameUser && this.codeRoom) {
+      if (this.nameUser && this.idRoom) {
         return true;
       }
       return false;
     }
   },
   methods: {
-    createRoom() {
-      const idUser = Date.now();
-      this.$store.dispatch("isConnected", {
-        id: idUser,
+    joinRoom() {
+      this.$store.dispatch("joinRoom", {
+        id: this.idUser,
         name: this.nameUser,
-        avatar: this.avatars[this.avatarSelected]
+        avatar: this.avatars[this.avatarSelected],
+        idRoom: this.idRoom ? this.idRoom : this.idUser
       });
-    },
-    joinRoom() {}
+    }
   }
 };
 </script>
