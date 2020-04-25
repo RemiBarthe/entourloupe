@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 import { db } from "../firebase"
 
-export const IS_CONNECTED = 'IS_CONNECTED'
 export const IS_CURRENT_USER = 'IS_CURRENT_USER'
 export const SET_USERS = 'SET_USERS'
 
@@ -12,21 +11,22 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
-        connected: false,
-        currentUser: "",
+        currentUser: null,
+        currentRoom: null,
         users: []
     },
     getters: {
 
     },
     actions: {
-        isConnected({ commit }, payload) {
-            db.collection("users").doc(payload.id.toString()).set({ name: payload.name, avatar: payload.avatar })
-            commit(IS_CONNECTED, true)
-            commit(IS_CURRENT_USER, payload.id)
-        },
-        fetchUsers({ commit }) {
-            db.collection("users").onSnapshot(querySnapshot => {
+        joinRoom({ commit }, payload) {
+            const idRoom = payload.idRoom.toString()
+            const idUser = payload.id.toString()
+
+            db.collection("rooms").doc(idRoom).collection("users").doc(idUser).set({ name: payload.name, avatar: payload.avatar })
+            commit(IS_CURRENT_USER, { id: payload.id, idRoom: payload.idRoom })
+
+            db.collection("rooms").doc(idRoom).collection("users").onSnapshot(querySnapshot => {
                 let usersArray = []
 
                 querySnapshot.forEach(doc => {
@@ -39,16 +39,17 @@ export const store = new Vuex.Store({
             })
         },
         disconnectUser({ commit }, payload) {
-            db.collection("users").doc(payload.id.toString()).delete()
-            commit(IS_CONNECTED, false)
+            const idRoom = payload.idRoom.toString()
+            const idUser = payload.id.toString()
+
+            db.collection("rooms").doc(idRoom).collection("users").doc(idUser).delete()
+            commit(IS_CURRENT_USER, null)
         }
     },
     mutations: {
-        [IS_CONNECTED](state, payload) {
-            state.connected = payload
-        },
         [IS_CURRENT_USER](state, payload) {
-            state.currentUser = payload
+            state.currentUser = payload.id
+            state.currentRoom = payload.idRoom
         },
         [SET_USERS](state, payload) {
             state.users = payload

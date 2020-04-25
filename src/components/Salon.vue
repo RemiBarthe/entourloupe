@@ -1,7 +1,8 @@
 <template>
   <v-container>
     <v-row class="text-center container-start" align="center" justify="center">
-      <h1 @click="disconnectUser">Salon</h1>
+      <h1>Salon</h1>
+      <p>Code pour rejoindre la partie : {{ currentRoom }}</p>
       <listUsers />
     </v-row>
   </v-container>
@@ -19,17 +20,18 @@ export default {
     ListUsers
   },
   computed: {
-    ...mapState(["currentUser"])
+    ...mapState(["currentUser", "currentRoom"])
   },
   created() {
     window.addEventListener("beforeunload", this.disconnectUser);
   },
   methods: {
     disconnectUser() {
-      console.log("oui");
       this.$store.dispatch("disconnectUser", {
-        id: this.currentUser
+        id: this.currentUser,
+        idRoom: this.currentRoom
       });
+      return true;
     }
   }
 };
