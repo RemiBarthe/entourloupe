@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <salon v-if="connected" />
+      <salon v-if="currentUser" />
       <startGame v-else />
     </v-content>
   </v-app>
@@ -24,7 +24,7 @@ export default {
     this.$store.dispatch("fetchUsers");
   },
   computed: {
-    ...mapState(["connected"])
+    ...mapState(["currentUser"])
   }
 };
 </script>
