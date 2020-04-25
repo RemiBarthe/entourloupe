@@ -31,6 +31,7 @@ export default {
         id: this.currentUser,
         idRoom: this.currentRoom
       });
+      return true;
     }
   }
 };
