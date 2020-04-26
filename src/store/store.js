@@ -5,7 +5,8 @@ import { db } from "../firebase"
 
 export const IS_CURRENT_USER = 'IS_CURRENT_USER'
 export const SET_USERS = 'SET_USERS'
-
+export const SET_ROUND = 'SET_ROUND'
+export const SET_QUESTIONS = 'SET_QUESTIONS'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,9 @@ export const store = new Vuex.Store({
         currentUser: null,
         currentRoom: null,
         isHost: null,
-        users: []
+        round: null,
+        users: [],
+        questions: []
     },
     getters: {
 
@@ -25,7 +28,7 @@ export const store = new Vuex.Store({
             const idUser = payload.id.toString()
 
             db.collection("rooms").doc(idRoom).collection("users").doc(idUser).set({ name: payload.name, avatar: payload.avatar })
-            commit(IS_CURRENT_USER, { id: payload.id, idRoom: payload.idRoom, isHost: payload.isHost })
+            db.collection("rooms").doc(idRoom).set({ round: 0 })
 
             db.collection("rooms").doc(idRoom).collection("users").onSnapshot(querySnapshot => {
                 let usersArray = []
@@ -38,6 +41,40 @@ export const store = new Vuex.Store({
 
                 commit(SET_USERS, usersArray)
             })
+
+            db.collection("rooms").doc(idRoom).onSnapshot(querySnapshot => {
+                commit(SET_ROUND, querySnapshot.data().round)
+            })
+
+            commit(IS_CURRENT_USER, { id: payload.id, idRoom: payload.idRoom, isHost: payload.isHost })
+
+        },
+        setQuestions({ commit }, payload) {
+            const idRoom = payload.toString()
+            db.collection("questions").get().then(function (querySnapshot) {
+                let questionsArray = []
+                querySnapshot.forEach(function (doc) {
+                    db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
+                    let question = doc.data()
+                    question.id = doc.id
+                    questionsArray.push(question)
+                })
+
+                commit(SET_QUESTIONS, questionsArray)
+            })
+        },
+        getQuestions({ commit }, payload) {
+            const idRoom = payload.toString()
+            db.collection("rooms").doc(idRoom).collection("questions").get().then(function (querySnapshot) {
+                let questionsArray = []
+                querySnapshot.forEach(function (doc) {
+                    let question = doc.data()
+                    question.id = doc.id
+                    questionsArray.push(question)
+                })
+
+                commit(SET_QUESTIONS, questionsArray)
+            })
         },
         disconnectUser({ commit }, payload) {
             const idUser = payload.id.toString()
@@ -45,7 +82,14 @@ export const store = new Vuex.Store({
 
             db.collection("rooms").doc(idRoom).collection("users").doc(idUser).delete()
             commit(IS_CURRENT_USER, null)
+        },
+        setRound({ commit }, payload) {
+            const idRoom = payload.idRoom.toString()
+
+            db.collection("rooms").doc(idRoom).set({ round: payload.round })
+            commit(SET_ROUND, payload)
         }
+
     },
     mutations: {
         [IS_CURRENT_USER](state, payload) {
@@ -55,6 +99,12 @@ export const store = new Vuex.Store({
         },
         [SET_USERS](state, payload) {
             state.users = payload
+        },
+        [SET_QUESTIONS](state, payload) {
+            state.questions = payload
+        },
+        [SET_ROUND](state, payload) {
+            state.round = payload
         }
     }
 })

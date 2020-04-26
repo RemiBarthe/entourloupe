@@ -81,6 +81,12 @@ export default {
         idRoom: this.idRoom ? this.idRoom : this.idUser,
         isHost: !this.idRoom
       });
+
+      if (!this.idRoom) {
+        this.$store.dispatch("setQuestions", this.idUser);
+      } else {
+        this.$store.dispatch("getQuestions", this.idRoom);
+      }
     }
   }
 };
