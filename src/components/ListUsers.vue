@@ -2,7 +2,12 @@
   <v-list dense>
     <v-subheader>Liste des joueurs</v-subheader>
     <v-list-item-group color="primary">
-      <v-list-item v-for="user in users" :key="user.id" inactive>
+      <v-list-item
+        v-for="user in users"
+        :key="user.id"
+        :class="{ answered: user.answer }"
+        inactive
+      >
         <v-list-item-icon>
           <v-icon v-text="user.avatar"></v-icon>
         </v-list-item-icon>
@@ -57,4 +62,7 @@ export default {
 </script>
 
 <style scoped>
+.answered {
+  background-color: lightblue;
+}
 </style>

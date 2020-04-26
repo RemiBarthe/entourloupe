@@ -6,30 +6,15 @@
       </v-navigation-drawer>
 
       <v-container v-if="!round" class="container-room">
-        <v-card class="mx-auto" max-width="500">
-          <v-card-title>
-            <h2 class="display-1">En attente des joueurs</h2>
-          </v-card-title>
-
-          <v-divider></v-divider>
-
-          <v-card-text>
-            <p class="body-1">
-              Code pour rejoindre la partie :
-              <span class="font-weight-bold"> {{ currentRoom }} </span>
-            </p>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-btn v-if="isHost" color="primary" @click="startGame">
-              Lancer la partie
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <waiting />
       </v-container>
 
-      <v-container v-else class="container-room">
+      <v-container v-else-if="round && !allAnswered" class="container-room">
         <question />
+      </v-container>
+
+      <v-container v-else-if="round && allAnswered" class="container-room">
+        <p>Coucou</p>
       </v-container>
     </v-row>
   </v-container>
@@ -39,6 +24,7 @@
 import { mapState } from "vuex";
 import ListUsers from "./ListUsers";
 import Question from "./Question";
+import Waiting from "./Waiting";
 
 export default {
   name: "Room",
@@ -46,12 +32,19 @@ export default {
   data: () => ({}),
   components: {
     ListUsers,
-    Question
+    Question,
+    Waiting
   },
   computed: {
     ...mapState(["currentUser", "currentRoom", "isHost", "round", "users"]),
     allAnswered() {
-      return false;
+      let answered = true;
+      this.users.forEach(user => {
+        if (!user.answer) {
+          answered = false;
+        }
+      });
+      return answered;
     }
   },
   created() {
