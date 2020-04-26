@@ -40,8 +40,8 @@ export const store = new Vuex.Store({
             })
         },
         disconnectUser({ commit }, payload) {
-            const idRoom = payload.idRoom.toString()
             const idUser = payload.id.toString()
+            const idRoom = payload.idRoom.toString()
 
             db.collection("rooms").doc(idRoom).collection("users").doc(idUser).delete()
             commit(IS_CURRENT_USER, null)

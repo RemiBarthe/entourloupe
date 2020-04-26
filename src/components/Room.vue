@@ -11,6 +11,8 @@
             <h2 class="display-1">En attente des joueurs</h2>
           </v-card-title>
 
+          <v-divider></v-divider>
+
           <v-card-text>
             <p>Code pour rejoindre la partie : {{ currentRoom }}</p>
           </v-card-text>

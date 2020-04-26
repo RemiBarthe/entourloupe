@@ -5,6 +5,8 @@
         <h2 class="display-1">Jeu confinement</h2>
       </v-card-title>
 
+      <v-divider></v-divider>
+
       <v-card-text>
         <v-text-field label="Ton nom" v-model="nameUser" />
       </v-card-text>
