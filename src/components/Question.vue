@@ -12,7 +12,7 @@
         toi
       </p>
       <p class="body-1 font-weight-bold">
-        {{ questions[round].question }}
+        {{ actualQuestion }}
       </p>
     </v-card-text>
 
@@ -36,7 +36,10 @@ export default {
 
   data: () => ({}),
   computed: {
-    ...mapState(["currentUser", "currentRoom", "round", "questions"])
+    ...mapState(["currentUser", "currentRoom", "round", "questions"]),
+    actualQuestion() {
+      return this.questions[this.round - 1].question;
+    }
   },
   methods: {
     submitAnswer() {}
