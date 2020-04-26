@@ -14,7 +14,7 @@
       </v-container>
 
       <v-container v-else-if="round && allAnswered" class="container-room">
-        <p>Coucou</p>
+        <choose />
       </v-container>
     </v-row>
   </v-container>
@@ -25,6 +25,7 @@ import { mapState } from "vuex";
 import ListUsers from "./ListUsers";
 import Question from "./Question";
 import Waiting from "./Waiting";
+import Choose from "./Choose";
 
 export default {
   name: "Room",
@@ -33,10 +34,11 @@ export default {
   components: {
     ListUsers,
     Question,
-    Waiting
+    Waiting,
+    Choose
   },
   computed: {
-    ...mapState(["currentUser", "currentRoom", "isHost", "round", "users"]),
+    ...mapState(["currentUser", "currentRoom", "round", "users"]),
     allAnswered() {
       let answered = true;
       this.users.forEach(user => {
