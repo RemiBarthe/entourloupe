@@ -49,7 +49,10 @@ export default {
     Question
   },
   computed: {
-    ...mapState(["currentUser", "currentRoom", "isHost", "round"])
+    ...mapState(["currentUser", "currentRoom", "isHost", "round", "users"]),
+    allAnswered() {
+      return false;
+    }
   },
   created() {
     window.addEventListener("beforeunload", this.disconnectUser);

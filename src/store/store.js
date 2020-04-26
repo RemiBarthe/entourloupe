@@ -27,7 +27,7 @@ export const store = new Vuex.Store({
             const idRoom = payload.idRoom.toString()
             const idUser = payload.id.toString()
 
-            db.collection("rooms").doc(idRoom).collection("users").doc(idUser).set({ name: payload.name, avatar: payload.avatar })
+            db.collection("rooms").doc(idRoom).collection("users").doc(idUser).set({ name: payload.name, avatar: payload.avatar, answer: "" })
             db.collection("rooms").doc(idRoom).set({ round: 0 })
 
             db.collection("rooms").doc(idRoom).collection("users").onSnapshot(querySnapshot => {
@@ -89,7 +89,6 @@ export const store = new Vuex.Store({
             db.collection("rooms").doc(idRoom).set({ round: payload.round })
             commit(SET_ROUND, payload)
         }
-
     },
     mutations: {
         [IS_CURRENT_USER](state, payload) {

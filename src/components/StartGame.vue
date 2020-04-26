@@ -54,8 +54,8 @@ export default {
   data: () => ({
     nameUser: null,
     idRoom: null,
+    avatarSelected: null,
     idUser: Date.now(),
-    avatarSelected: "mdi-dice-6",
     avatars: Avatars
   }),
   computed: {
