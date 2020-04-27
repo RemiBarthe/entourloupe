@@ -51,10 +51,11 @@ export const store = new Vuex.Store({
         },
         setQuestions({ commit }, payload) {
             const idRoom = payload.toString();
-            db.collection("countQuestions").doc("0").get().then(doc => {
-                console.log(doc.data());
-
-            
+            //Cherche dans la BDD:Table (countQuestions) => Valeur de sortie count:
+            db.collection("countQuestions").doc("0").get().then(doc =>{
+                let dataSize = doc.data()
+                //récuperer la data : Variable.NomAttribut
+                let lenQuestion = dataSize.count
                 
 
                 //let questionsArray = []
@@ -66,14 +67,10 @@ export const store = new Vuex.Store({
                     //questionsArray.push(question)
                // })
                 //commit(SET_QUESTIONS, questionsArray)
-                console.log("totottotootootototoo");
-                //console.log(Tab);
-                console.log("totottotootootototoo");
-    
                 let questionsArray =[]
 
                 for (let i = 0; i < 5; i ++ ){ //position
-                const randomize = Math.floor(Math.random()); // Valeur:10 à enlever | il faut récup taille de l'appel
+                const randomize = Math.floor(Math.random() * lenQuestion); // Valeur:10 à enlever | il faut récup taille de l'appel
                 console.log(randomize)
                 db.collection("questions").doc(""+randomize).get().then(doc=> { 
 
