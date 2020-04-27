@@ -52,21 +52,25 @@ export const store = new Vuex.Store({
         setQuestions({ commit }, payload) {
             const idRoom = payload.toString();
             
-            /*db.collection("questions").get().then(function (querySnapshot) {
-                let questionsArray = []
-                querySnapshot.forEach(function (doc) {
-                    db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
-                    let question = doc.data()
-                    question.id = doc.id
-                    questionsArray.push(question)
-                })
-                commit(SET_QUESTIONS, questionsArray)
-                
-            })*/ 
-            
-            let questionsArray =[] 
-            for (let i = 0; i < 5; i ++ ){ 
-                const randomize = (Math.floor(Math.random() *10)) + 1; 
+            db.collection("questions").get().then(function (querySnapshot) {
+                //let questionsArray = []
+                //querySnapshot.forEach(function (doc) {
+                    //db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
+                    //let question = doc.data()
+                    //question.id = doc.id
+                    
+                    //questionsArray.push(question)
+               // })
+                //commit(SET_QUESTIONS, questionsArray)
+                console.log("tatatatattaa");
+                console.log(querySnapshot.size);
+                console.log("tatatatattaa");
+
+                const len = querySnapshot.size;
+                let questionsArray =[]
+
+                for (let i = 0; i < 5; i ++ ){ //position
+                const randomize = Math.floor(Math.random() * len); // Valeur:10 à enlever | il faut récup taille de l'appel
                 console.log(randomize)
                 db.collection("questions").doc(""+randomize).get().then(doc=> { 
 
@@ -75,8 +79,12 @@ export const store = new Vuex.Store({
                     question.id = doc.id
                     questionsArray.push(question)
                     })  
-                }
-                commit(SET_QUESTIONS, questionsArray)
+            }
+            commit(SET_QUESTIONS, questionsArray)
+            
+            })
+
+            
                 
                
    
