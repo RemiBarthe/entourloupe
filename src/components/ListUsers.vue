@@ -16,8 +16,10 @@
           <v-list-item-title v-text="user.name"></v-list-item-title>
         </v-list-item-content>
 
-        <v-list-item-content>
-          <v-list-item-content v-text="user.score"></v-list-item-content>
+        <v-list-item-content v-if="showScore">
+          <v-list-item-content class="overline"
+            >Score : {{ user.score }}</v-list-item-content
+          >
         </v-list-item-content>
 
         <v-list-item-action v-if="isHost">
@@ -48,7 +50,7 @@ export default {
 
   data: () => ({}),
   computed: {
-    ...mapState(["currentUser", "currentRoom", "users", "isHost"])
+    ...mapState(["currentUser", "currentRoom", "users", "isHost", "showScore"])
   },
   created() {},
   methods: {

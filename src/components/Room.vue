@@ -13,12 +13,18 @@
         <question />
       </v-container>
 
-      <v-container v-else-if="round && allAnswered" class="container-room">
+      <v-container
+        v-else-if="round && allAnswered && !allChoseAnswer"
+        class="container-room"
+      >
         <choose />
       </v-container>
 
-      <v-container v-else-if="round && allAnswered" class="container-room">
-        <p>Coucou</p>
+      <v-container
+        v-else-if="round && allAnswered && allChoseAnswer"
+        class="container-room"
+      >
+        <score />
       </v-container>
     </v-row>
   </v-container>
@@ -30,6 +36,7 @@ import ListUsers from "./ListUsers";
 import Question from "./Question";
 import Waiting from "./Waiting";
 import Choose from "./Choose";
+import Score from "./Score";
 
 export default {
   name: "Room",
@@ -39,7 +46,8 @@ export default {
     ListUsers,
     Question,
     Waiting,
-    Choose
+    Choose,
+    Score
   },
   computed: {
     ...mapState(["currentUser", "currentRoom", "round", "users"]),
@@ -51,6 +59,15 @@ export default {
         }
       });
       return answered;
+    },
+    allChoseAnswer() {
+      let chose = true;
+      this.users.forEach(user => {
+        if (!user.voteFor) {
+          chose = false;
+        }
+      });
+      return chose;
     }
   },
   created() {

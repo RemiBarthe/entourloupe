@@ -1,15 +1,18 @@
 <template>
-  <v-card class="mx-auto" max-width="500" v-if="!answered">
+  <v-card class="mx-auto" max-width="900" v-if="!answered">
     <v-card-title>
       <h2 class="headline">Question {{ round }}/5</h2>
     </v-card-title>
+
+    <v-card-subtitle>
+      Invente la meilleure réponse possible pour que les autres votent pour toi
+    </v-card-subtitle>
 
     <v-divider></v-divider>
 
     <v-card-text>
       <p class="overline">
-        Invente la meilleure réponse possible pour que les autres votent pour
-        toi
+        Question :
       </p>
       <p class="body-1 font-weight-bold">
         {{ actualQuestion }}
@@ -61,6 +64,9 @@ export default {
       }
       return "Chargement ..";
     }
+  },
+  created() {
+    this.$store.dispatch("setShowScore", false);
   },
   methods: {
     submitAnswer() {
