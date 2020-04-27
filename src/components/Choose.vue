@@ -22,6 +22,7 @@
                 :color="active ? 'primary white--text' : ''"
                 class="d-flex align-center"
                 @click="toggle"
+                min-height="50px"
               >
                 <div class="body-1 flex-grow-1 text-center">
                   {{ user.answer }}

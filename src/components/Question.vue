@@ -56,7 +56,10 @@ export default {
   computed: {
     ...mapState(["currentUser", "currentRoom", "round", "questions", "users"]),
     actualQuestion() {
-      return this.questions[this.round].question;
+      if (this.round > 0 && this.questions) {
+        return this.questions[this.round].question;
+      }
+      return "Chargement ..";
     }
   },
   methods: {
