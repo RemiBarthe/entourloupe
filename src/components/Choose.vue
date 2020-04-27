@@ -66,7 +66,7 @@
 
     <v-snackbar v-model="isCurrentAnswer">
       C'est ta réponse
-      <v-btn color="red" text @click="snackbar = false">
+      <v-btn color="red" text @click="isCurrentAnswer = false">
         Close
       </v-btn>
     </v-snackbar>
@@ -82,7 +82,7 @@ export default {
 
   data: () => ({
     choice: null,
-    isCurrentAnswer: true
+    isCurrentAnswer: false
   }),
   computed: {
     ...mapState(["currentUser", "currentRoom", "users", "round", "questions"]),
@@ -133,7 +133,7 @@ export default {
             scoreUser = user.score + 1;
             winningUser = this.choice;
             this.changeScore(winningUser, scoreUser);
-          } else {
+          } else if (user.id === this.choice && user.id === idUser) {
             this.isCurrentAnswer = true;
           }
         });
