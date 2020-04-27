@@ -17,7 +17,7 @@
       <v-container>
         <v-row>
           <v-col
-            v-for="answer in answers"
+            v-for="answer in randomizedAnswers"
             :key="answer.submittedBy"
             cols="12"
             md="4"
@@ -82,34 +82,32 @@ export default {
 
   data: () => ({
     choice: null,
-    isCurrentAnswer: false
+    isCurrentAnswer: false,
+    randomizedAnswers: []
   }),
   computed: {
     ...mapState(["currentUser", "currentRoom", "users", "round", "questions"]),
     actualQuestion() {
       return this.questions[this.round].question;
-    },
-    answers() {
-      let arrayAnswers = [];
-      this.users.forEach(user => {
-        arrayAnswers.push({ value: user.answer, submittedBy: user.id });
-      });
+    }
+  },
+  created() {
+    let arrayAnswers = [];
+    this.users.forEach(user => {
+      arrayAnswers.push({ value: user.answer, submittedBy: user.id });
+    });
 
-      arrayAnswers.push({
-        value: this.questions[this.round].answer,
-        submittedBy: "computer"
-      });
+    arrayAnswers.push({
+      value: this.questions[this.round].answer,
+      submittedBy: "computer"
+    });
 
-      let randomizedArray = [],
-        arrayLength = arrayAnswers.length,
-        i;
+    let arrayLength = arrayAnswers.length,
+      i;
 
-      while (arrayLength) {
-        i = Math.floor(Math.random() * arrayLength--);
-        randomizedArray.push(arrayAnswers.splice(i, 1)[0]);
-      }
-
-      return randomizedArray;
+    while (arrayLength) {
+      i = Math.floor(Math.random() * arrayLength--);
+      this.randomizedAnswers.push(arrayAnswers.splice(i, 1)[0]);
     }
   },
   methods: {
