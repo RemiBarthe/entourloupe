@@ -81,13 +81,18 @@ export const store = new Vuex.Store({
                     })  
             }
             commit(SET_QUESTIONS, questionsArray)
-            
             })
+        },
+        testRandomize(){
 
-            
-                
-               
-   
+            let rngTab=[];
+            for (let i = 0; i < 5; i ++ ){
+                const randomize = Math.floor(Math.random() * 10);
+                rngTab.push(randomize)
+            }
+            // faire un tableau i:position, j:valeur qui compare pour chaque position la valeur et si valeur = alors math.random
+            console.log(rngTab)
+
         },
         getQuestions({ commit }, payload) {
             const idRoom = payload.toString()
