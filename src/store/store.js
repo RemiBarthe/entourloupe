@@ -51,8 +51,12 @@ export const store = new Vuex.Store({
         },
         setQuestions({ commit }, payload) {
             const idRoom = payload.toString();
+            db.collection("countQuestions").doc("0").get().then(doc => {
+                console.log(doc.data());
+
             
-            db.collection("questions").get().then(function (querySnapshot) {
+                
+
                 //let questionsArray = []
                 //querySnapshot.forEach(function (doc) {
                     //db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
@@ -62,21 +66,20 @@ export const store = new Vuex.Store({
                     //questionsArray.push(question)
                // })
                 //commit(SET_QUESTIONS, questionsArray)
-                console.log("tatatatattaa");
-                console.log(querySnapshot.size);
-                console.log("tatatatattaa");
-
-                const len = querySnapshot.size;
+                console.log("totottotootootototoo");
+                //console.log(Tab);
+                console.log("totottotootootototoo");
+    
                 let questionsArray =[]
 
                 for (let i = 0; i < 5; i ++ ){ //position
-                const randomize = Math.floor(Math.random() * len); // Valeur:10 à enlever | il faut récup taille de l'appel
+                const randomize = Math.floor(Math.random()); // Valeur:10 à enlever | il faut récup taille de l'appel
                 console.log(randomize)
                 db.collection("questions").doc(""+randomize).get().then(doc=> { 
 
                     db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
                     let question = doc.data()
-                    question.id = doc.id
+                    //question.id = doc.id
                     questionsArray.push(question)
                     })  
             }
