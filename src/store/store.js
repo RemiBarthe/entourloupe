@@ -71,7 +71,7 @@ export const store = new Vuex.Store({
             // Je veux que la question 3 where id
             //Foreach element by my new tab
             //5 Element
-
+               //test
             const randomize = Math.floor(Math.random() *10);
             console.log(randomize)
             
