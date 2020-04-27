@@ -25,6 +25,12 @@
         Valider votre réponse
       </v-btn>
     </v-card-actions>
+
+    <v-card-actions>
+      <v-btn color="primary" @click="nextQuestion">
+        Passer à la question suivante
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -42,7 +48,16 @@ export default {
     }
   },
   methods: {
-    submitAnswer() {}
+    submitAnswer() {},
+    nextQuestion() {
+      const nextRound = this.round + 1;
+      this.$store.dispatch("setRound", {
+        round: nextRound,
+        idRoom: this.currentRoom
+      }
+      );
+      this.$store.dispatch("newQuestion", this.idUser);
+      }
   }
 };
 </script>
