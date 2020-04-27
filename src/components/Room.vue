@@ -16,6 +16,10 @@
       <v-container v-else-if="round && allAnswered" class="container-room">
         <choose />
       </v-container>
+
+      <v-container v-else-if="round && allAnswered" class="container-room">
+        <p>Coucou</p>
+      </v-container>
     </v-row>
   </v-container>
 </template>

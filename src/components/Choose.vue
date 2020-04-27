@@ -13,25 +13,38 @@
       </p>
     </v-card-text>
 
-    <v-item-group mandatory>
+    <v-item-group mandatory v-model="choice">
       <v-container>
         <v-row>
           <v-col
             v-for="answer in answers"
-            :key="answer.submitedBy"
+            :key="answer.submittedBy"
             cols="12"
             md="4"
           >
-            <v-item v-slot:default="{ active, toggle }">
+            <v-item
+              v-slot:default="{ active, toggle }"
+              :value="answer.submittedBy"
+            >
               <v-card
-                :color="active ? 'primary white--text' : ''"
+                :color="active ? 'primary' : ''"
                 class="d-flex align-center"
                 @click="toggle"
                 min-height="50px"
+                dark
               >
-                <div class="body-1 flex-grow-1 text-center">
-                  {{ answer.value }}
-                </div>
+                <v-card-text>
+                  <p
+                    class="text-right overline"
+                    v-if="answer.submittedBy == currentUser"
+                  >
+                    Ta réponse
+                  </p>
+
+                  <p class="text-center body-1">
+                    {{ answer.value }}
+                  </p>
+                </v-card-text>
               </v-card>
             </v-item>
           </v-col>
@@ -46,34 +59,45 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn color="primary">
+      <v-btn color="primary" @click="submitChoice">
         Choisir
       </v-btn>
     </v-card-actions>
+
+    <v-snackbar v-model="isCurrentAnswer">
+      C'est ta réponse
+      <v-btn color="red" text @click="snackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-card>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import { db } from "../firebase";
 
 export default {
   name: "Choose",
 
-  data: () => ({}),
+  data: () => ({
+    choice: null,
+    isCurrentAnswer: true
+  }),
   computed: {
-    ...mapState(["users", "round", "questions"]),
+    ...mapState(["currentUser", "currentRoom", "users", "round", "questions"]),
     actualQuestion() {
       return this.questions[this.round].question;
     },
     answers() {
       let arrayAnswers = [];
       this.users.forEach(user => {
-        arrayAnswers.push({ value: user.answer, submitedBy: user.id });
+        arrayAnswers.push({ value: user.answer, submittedBy: user.id });
       });
 
       arrayAnswers.push({
         value: this.questions[this.round].answer,
-        submitedBy: "computer"
+        submittedBy: "computer"
       });
 
       let randomizedArray = [],
@@ -88,7 +112,49 @@ export default {
       return randomizedArray;
     }
   },
-  methods: {}
+  methods: {
+    submitChoice() {
+      const idUser = this.currentUser.toString();
+      const idRoom = this.currentRoom.toString();
+      let scoreUser = 0;
+      let winningUser = null;
+
+      if (this.choice === "computer") {
+        this.users.forEach(user => {
+          if (user.id === idUser) {
+            scoreUser = user.score + 2;
+            winningUser = user.id;
+            this.changeScore(winningUser, scoreUser);
+          }
+        });
+      } else {
+        this.users.forEach(user => {
+          if (user.id === this.choice && user.id != idUser) {
+            scoreUser = user.score + 1;
+            winningUser = this.choice;
+            this.changeScore(winningUser, scoreUser);
+          } else {
+            this.isCurrentAnswer = true;
+          }
+        });
+      }
+
+      db.collection("rooms")
+        .doc(idRoom)
+        .collection("users")
+        .doc(idUser)
+        .update({ voteFor: this.choice });
+    },
+    changeScore(idUser, scoreUser) {
+      const idRoom = this.currentRoom.toString();
+
+      db.collection("rooms")
+        .doc(idRoom)
+        .collection("users")
+        .doc(idUser)
+        .update({ score: scoreUser });
+    }
+  }
 };
 </script>
 
