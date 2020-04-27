@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="500">
     <v-card-title>
-      <h2 class="headline">Question {{ round }}/5</h2>
+      <h2 class="headline">Question {{ round }}/5</h2> 
     </v-card-title>
 
     <v-divider></v-divider>
@@ -28,7 +28,7 @@
 
     <v-card-actions>
       <v-btn color="primary" @click="nextQuestion">
-        Passer à la question suivante
+        Passer à la question suivante Térence
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -56,7 +56,7 @@ export default {
         idRoom: this.currentRoom
       }
       );
-      this.$store.dispatch("newQuestion", this.idUser);
+      this.$store.dispatch("setQuestions", this.idUser);
       }
   }
 };
