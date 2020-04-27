@@ -16,7 +16,12 @@
     <v-item-group mandatory>
       <v-container>
         <v-row>
-          <v-col v-for="user in users" :key="user.id" cols="12" md="4">
+          <v-col
+            v-for="answer in answers"
+            :key="answer.submitedBy"
+            cols="12"
+            md="4"
+          >
             <v-item v-slot:default="{ active, toggle }">
               <v-card
                 :color="active ? 'primary white--text' : ''"
@@ -25,7 +30,7 @@
                 min-height="50px"
               >
                 <div class="body-1 flex-grow-1 text-center">
-                  {{ user.answer }}
+                  {{ answer.value }}
                 </div>
               </v-card>
             </v-item>
@@ -59,6 +64,19 @@ export default {
     ...mapState(["users", "round", "questions"]),
     actualQuestion() {
       return this.questions[this.round].question;
+    },
+    answers() {
+      let arrayAnswers = [];
+      this.users.forEach(user => {
+        arrayAnswers.push({ value: user.answer, submitedBy: user.id });
+      });
+
+      arrayAnswers.push({
+        value: this.questions[this.round].answer,
+        submitedBy: "computer"
+      });
+
+      return arrayAnswers;
     }
   },
   methods: {}
