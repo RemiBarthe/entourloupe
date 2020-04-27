@@ -76,7 +76,16 @@ export default {
         submitedBy: "computer"
       });
 
-      return arrayAnswers;
+      let randomizedArray = [],
+        arrayLength = arrayAnswers.length,
+        i;
+
+      while (arrayLength) {
+        i = Math.floor(Math.random() * arrayLength--);
+        randomizedArray.push(arrayAnswers.splice(i, 1)[0]);
+      }
+
+      return randomizedArray;
     }
   },
   methods: {}
