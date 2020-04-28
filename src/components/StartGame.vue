@@ -83,13 +83,11 @@ export default {
       });
 
       if (!this.idRoom) {
-        //hote
         this.$store.dispatch("setQuestions", this.idUser);
       } else {
-        //client
         this.$store.dispatch("getQuestions", this.idRoom);
       }
-    },
+    }
   }
 };
 </script>
