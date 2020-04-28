@@ -8,7 +8,12 @@
       <v-divider></v-divider>
 
       <v-card-text>
-        <v-text-field label="Ton nom" v-model="nameUser" />
+        <v-text-field
+          label="Ton nom"
+          v-model="nameUser"
+          maxlength="20"
+          counter="20"
+        />
       </v-card-text>
 
       <v-card-text>

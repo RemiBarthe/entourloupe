@@ -14,7 +14,12 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn v-if="isHost" color="primary" @click="startGame">
+      <v-btn
+        v-if="isHost"
+        color="primary"
+        @click="startGame"
+        :disabled="!isValid"
+      >
         Lancer la partie
       </v-btn>
     </v-card-actions>
@@ -29,7 +34,14 @@ export default {
 
   data: () => ({}),
   computed: {
-    ...mapState(["currentRoom", "isHost", "round"])
+    ...mapState(["currentRoom", "isHost", "round", "users"]),
+    isValid() {
+      if (this.users.length > 1) {
+        return true;
+      }
+
+      return false;
+    }
   },
   methods: {
     startGame() {

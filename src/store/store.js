@@ -69,7 +69,6 @@ export const store = new Vuex.Store({
 
                 for (let n = 0; n < 5; n++) {
                     randomize = Math.floor(Math.random() * countIdQuestions--)
-                    console.log(randomize)
                     let questionSplice = idQuestions.splice(randomize, 1)
 
                     db.collection("questions").doc(questionSplice.toString()).get().then(doc => {

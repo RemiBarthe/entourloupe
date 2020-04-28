@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="900" v-if="!chose">
     <v-card-title>
-      <h2 class="display-1">Question {{ round }}/5</h2>
+      <h2 class="display-1">Round {{ round }}/5</h2>
     </v-card-title>
 
     <v-card-subtitle>
@@ -36,8 +36,9 @@
                 :color="active ? 'primary' : ''"
                 class="d-flex align-center"
                 @click="toggle"
-                min-height="50px"
+                height="100%"
                 dark
+                outlined
               >
                 <v-card-text>
                   <p
@@ -74,7 +75,7 @@
 
   <v-card class="mx-auto" max-width="500" v-else>
     <v-card-title>
-      <h2 class="headline">Question {{ round }}/5</h2>
+      <h2 class="headline">Round {{ round }}/5</h2>
     </v-card-title>
 
     <v-divider></v-divider>

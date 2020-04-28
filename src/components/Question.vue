@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="900" v-if="!answered">
     <v-card-title>
-      <h2 class="headline">Question {{ round }}/5</h2>
+      <h2 class="headline">Round {{ round }}/5</h2>
     </v-card-title>
 
     <v-card-subtitle>
@@ -20,11 +20,17 @@
     </v-card-text>
 
     <v-card-text>
-      <v-textarea v-model="answer" auto-grow label="Votre réponse"></v-textarea>
+      <v-textarea
+        v-model="answer"
+        auto-grow
+        counter="250"
+        maxlength="250"
+        label="Votre réponse"
+      ></v-textarea>
     </v-card-text>
 
     <v-card-actions>
-      <v-btn color="primary" @click="submitAnswer">
+      <v-btn color="primary" @click="submitAnswer" :disabled="!isValid">
         Valider votre réponse
       </v-btn>
     </v-card-actions>
@@ -32,7 +38,7 @@
 
   <v-card class="mx-auto" max-width="500" v-else>
     <v-card-title>
-      <h2 class="headline">Question {{ round }}/5</h2>
+      <h2 class="headline">Round {{ round }}/5</h2>
     </v-card-title>
 
     <v-divider></v-divider>
@@ -63,6 +69,12 @@ export default {
         return this.questions[this.round - 1].question;
       }
       return "Chargement ..";
+    },
+    isValid() {
+      if (this.answer) {
+        return true;
+      }
+      return false;
     }
   },
   created() {
