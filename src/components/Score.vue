@@ -1,0 +1,116 @@
+<template>
+  <v-card class="mx-auto" max-width="900">
+    <v-card-title>
+      <h2 v-if="!gameOver" class="display-1">Question {{ round }}/5</h2>
+
+      <h2 v-else class="display-1">Partie terminée</h2>
+    </v-card-title>
+
+    <v-card-subtitle>
+      Récapitulatif des scores
+    </v-card-subtitle>
+
+    <v-divider></v-divider>
+
+    <v-card-text>
+      <p class="overline" v-if="!gameOver">
+        {{ bestScore.user }} est en tête est avec un score de
+        {{ bestScore.score }}
+      </p>
+
+      <p class="overline" v-else>
+        Le gagnant est {{ bestScore.user }} avec un score de
+        {{ bestScore.score }}
+      </p>
+    </v-card-text>
+
+    <v-card-text>
+      <v-data-table
+        :headers="headers"
+        :items="choices"
+        hide-default-footer
+      ></v-data-table>
+    </v-card-text>
+
+    <v-card-actions>
+      <v-btn v-if="isHost && !gameOver" color="primary" @click="nextRound">
+        Passer à la prochaine manche
+      </v-btn>
+
+      <v-btn v-if="gameOver" color="primary" @click="newGame">
+        Nouvelle partie
+      </v-btn>
+    </v-card-actions>
+  </v-card>
+</template>
+
+<script>
+import { mapState } from "vuex";
+import { db } from "../firebase";
+
+export default {
+  name: "Score",
+
+  data: () => ({
+    headers: [
+      {
+        text: "",
+        align: "start",
+        sortable: false,
+        value: "name"
+      },
+      { text: "A voté pour", value: "chose", sortable: false }
+    ],
+    choices: []
+  }),
+  computed: {
+    ...mapState(["currentRoom", "isHost", "round", "users"]),
+    gameOver() {
+      return this.round === 5 ? true : false;
+    },
+    bestScore() {
+      let bestScore = 0;
+      let bestUser = "";
+      this.users.forEach(user => {
+        if (user.score > bestScore) {
+          bestScore = user.score;
+          bestUser = user.name;
+        }
+      });
+
+      return { score: bestScore, user: bestUser };
+    }
+  },
+  created() {
+    this.$store.dispatch("setShowScore", true);
+    this.users.forEach(user => {
+      this.choices.push({ name: user.name, chose: user.voteFor });
+    });
+  },
+  methods: {
+    nextRound() {
+      const idRoom = this.currentRoom.toString();
+
+      this.users.forEach(user => {
+        db.collection("rooms")
+          .doc(idRoom)
+          .collection("users")
+          .doc(user.id)
+          .update({ answer: "", voteFor: "" });
+      });
+
+      const nextRound = this.round + 1;
+      this.$store.dispatch("setRound", {
+        round: nextRound,
+        idRoom: this.currentRoom
+      });
+    },
+    newGame() {
+      window.location.reload();
+    }
+  }
+};
+</script>
+
+<style scoped>
+</style>

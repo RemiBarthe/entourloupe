@@ -7,6 +7,8 @@ export const IS_CURRENT_USER = 'IS_CURRENT_USER'
 export const SET_USERS = 'SET_USERS'
 export const SET_ROUND = 'SET_ROUND'
 export const SET_QUESTIONS = 'SET_QUESTIONS'
+export const SET_SHOW_SCORE = 'SET_SHOW_SCORE'
+
 
 Vue.use(Vuex)
 
@@ -18,6 +20,10 @@ export const store = new Vuex.Store({
         round: null,
         users: [],
         questions: [],
+<<<<<<< HEAD
+=======
+        showScore: false
+>>>>>>> master
     },
     getters: {
 
@@ -27,7 +33,7 @@ export const store = new Vuex.Store({
             const idRoom = payload.idRoom.toString()
             const idUser = payload.id.toString()
 
-            db.collection("rooms").doc(idRoom).collection("users").doc(idUser).set({ name: payload.name, avatar: payload.avatar })
+            db.collection("rooms").doc(idRoom).collection("users").doc(idUser).set({ name: payload.name, avatar: payload.avatar, answer: "", voteFor: "", score: 0 })
             db.collection("rooms").doc(idRoom).set({ round: 0 })
 
             db.collection("rooms").doc(idRoom).collection("users").onSnapshot(querySnapshot => {
@@ -106,7 +112,13 @@ export const store = new Vuex.Store({
             db.collection("rooms").doc(idRoom).set({ round: payload.round })
             commit(SET_ROUND, payload)
         },
+<<<<<<< HEAD
 
+=======
+        setShowScore({ commit }, payload) {
+            commit(SET_SHOW_SCORE, payload)
+        }
+>>>>>>> master
     },
 
     mutations: {
@@ -123,6 +135,9 @@ export const store = new Vuex.Store({
         },
         [SET_ROUND](state, payload) {
             state.round = payload
+        },
+        [SET_SHOW_SCORE](state, payload) {
+            state.showScore = payload
         }
     }
 })
