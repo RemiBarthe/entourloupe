@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="900" v-if="!answered">
     <v-card-title>
-      <h2 class="headline">Question {{ round }}/5</h2> 
+      <h2 class="headline">Question {{ round }}/5</h2>
     </v-card-title>
 
     <v-card-subtitle>
@@ -28,7 +28,6 @@
         Valider votre réponse
       </v-btn>
     </v-card-actions>
-
   </v-card>
 
   <v-card class="mx-auto" max-width="500" v-else>
@@ -70,9 +69,6 @@ export default {
     this.$store.dispatch("setShowScore", false);
   },
   methods: {
-<<<<<<< HEAD
-    submitAnswer() {},
-=======
     submitAnswer() {
       const idRoom = this.currentRoom.toString();
       const idUser = this.currentUser.toString();
@@ -85,7 +81,6 @@ export default {
 
       this.answered = true;
     }
->>>>>>> master
   }
 };
 </script>
