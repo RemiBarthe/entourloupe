@@ -2,13 +2,24 @@
   <v-list dense>
     <v-subheader>Liste des joueurs</v-subheader>
     <v-list-item-group color="primary">
-      <v-list-item v-for="user in users" :key="user.id" inactive>
+      <v-list-item
+        v-for="user in users"
+        :key="user.id"
+        :class="{ answered: user.answer }"
+        inactive
+      >
         <v-list-item-icon>
           <v-icon v-text="user.avatar"></v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
           <v-list-item-title v-text="user.name"></v-list-item-title>
+        </v-list-item-content>
+
+        <v-list-item-content v-if="showScore">
+          <v-list-item-content class="overline"
+            >Score : {{ user.score }}</v-list-item-content
+          >
         </v-list-item-content>
 
         <v-list-item-action v-if="isHost">
@@ -39,7 +50,7 @@ export default {
 
   data: () => ({}),
   computed: {
-    ...mapState(["currentUser", "currentRoom", "users", "isHost"])
+    ...mapState(["currentUser", "currentRoom", "users", "isHost", "showScore"])
   },
   created() {},
   methods: {
@@ -57,4 +68,7 @@ export default {
 </script>
 
 <style scoped>
+.answered {
+  background-color: lightblue;
+}
 </style>

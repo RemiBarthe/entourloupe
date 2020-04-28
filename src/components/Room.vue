@@ -5,32 +5,29 @@
         <listUsers />
       </v-navigation-drawer>
 
-      <v-container v-if="!round" class="container-room">
-        <v-card class="mx-auto" max-width="500">
-          <v-card-title>
-            <h2 class="display-1">En attente des joueurs</h2>
-          </v-card-title>
+      <template v-if="!round">
+        <v-container v-if="!round" class="container-room">
+          <waiting />
+        </v-container>
+      </template>
 
-          <v-divider></v-divider>
+      <template v-else>
+        <template v-if="!allAnswered">
+          <v-container class="container-room">
+            <question />
+          </v-container>
+        </template>
 
-          <v-card-text>
-            <p class="body-1">
-              Code pour rejoindre la partie :
-              <span class="font-weight-bold"> {{ currentRoom }} </span>
-            </p>
-          </v-card-text>
+        <template v-else>
+          <v-container v-if="!allChoseAnswer" class="container-room">
+            <choose />
+          </v-container>
 
-          <v-card-actions>
-            <v-btn v-if="isHost" color="primary" @click="startGame">
-              Lancer la partie
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-container>
-
-      <v-container v-else class="container-room">
-        <question />
-      </v-container>
+          <v-container v-else-if="allChoseAnswer" class="container-room">
+            <score />
+          </v-container>
+        </template>
+      </template>
     </v-row>
   </v-container>
 </template>
@@ -39,6 +36,9 @@
 import { mapState } from "vuex";
 import ListUsers from "./ListUsers";
 import Question from "./Question";
+import Waiting from "./Waiting";
+import Choose from "./Choose";
+import Score from "./Score";
 
 export default {
   name: "Room",
@@ -46,10 +46,31 @@ export default {
   data: () => ({}),
   components: {
     ListUsers,
-    Question
+    Question,
+    Waiting,
+    Choose,
+    Score
   },
   computed: {
-    ...mapState(["currentUser", "currentRoom", "isHost", "round"])
+    ...mapState(["currentUser", "currentRoom", "round", "users"]),
+    allAnswered() {
+      let answered = true;
+      this.users.forEach(user => {
+        if (!user.answer) {
+          answered = false;
+        }
+      });
+      return answered;
+    },
+    allChoseAnswer() {
+      let chose = true;
+      this.users.forEach(user => {
+        if (!user.voteFor) {
+          chose = false;
+        }
+      });
+      return chose;
+    }
   },
   created() {
     window.addEventListener("beforeunload", this.disconnectUser);
