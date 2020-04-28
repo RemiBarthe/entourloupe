@@ -5,27 +5,29 @@
         <listUsers />
       </v-navigation-drawer>
 
-      <v-container v-if="!round" class="container-room">
-        <waiting />
-      </v-container>
+      <template v-if="!round">
+        <v-container v-if="!round" class="container-room">
+          <waiting />
+        </v-container>
+      </template>
 
-      <v-container v-else-if="round && !allAnswered" class="container-room">
-        <question />
-      </v-container>
+      <template v-else>
+        <template v-if="!allAnswered">
+          <v-container class="container-room">
+            <question />
+          </v-container>
+        </template>
 
-      <v-container
-        v-else-if="round && allAnswered && !allChoseAnswer"
-        class="container-room"
-      >
-        <choose />
-      </v-container>
+        <template v-else>
+          <v-container v-if="!allChoseAnswer" class="container-room">
+            <choose />
+          </v-container>
 
-      <v-container
-        v-else-if="round && allAnswered && allChoseAnswer"
-        class="container-room"
-      >
-        <score />
-      </v-container>
+          <v-container v-else-if="allChoseAnswer" class="container-room">
+            <score />
+          </v-container>
+        </template>
+      </template>
     </v-row>
   </v-container>
 </template>
