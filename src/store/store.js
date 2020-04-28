@@ -22,9 +22,6 @@ export const store = new Vuex.Store({
         questions: [],
         showScore: false
     },
-    getters: {
-
-    },
     actions: {
         joinRoom({ commit }, payload) {
             const idRoom = payload.idRoom.toString()
@@ -81,7 +78,6 @@ export const store = new Vuex.Store({
                 }
                 commit(SET_QUESTIONS, randomizeQuestions)
             })
-
         },
         getQuestions({ commit }, payload) {
             const idRoom = payload.toString()
@@ -113,7 +109,6 @@ export const store = new Vuex.Store({
             commit(SET_SHOW_SCORE, payload)
         }
     },
-
     mutations: {
         [IS_CURRENT_USER](state, payload) {
             state.currentUser = payload.id

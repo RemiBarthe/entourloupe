@@ -9,6 +9,7 @@ import './firebase'
 
 Vue.config.productionTip = false
 Vue.use(Vuex)
+
 new Vue({
   vuetify,
   store,
