@@ -60,7 +60,7 @@ export default {
     ...mapState(["currentUser", "currentRoom", "round", "questions", "users"]),
     actualQuestion() {
       if (this.round > 0 && this.questions) {
-        return this.questions[this.round].question;
+        return this.questions[this.round - 1].question;
       }
       return "Chargement ..";
     }

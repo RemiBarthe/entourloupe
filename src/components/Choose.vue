@@ -103,7 +103,7 @@ export default {
   computed: {
     ...mapState(["currentUser", "currentRoom", "users", "round", "questions"]),
     actualQuestion() {
-      return this.questions[this.round].question;
+      return this.questions[this.round - 1].question;
     }
   },
   created() {
@@ -113,7 +113,7 @@ export default {
     });
 
     arrayAnswers.push({
-      value: this.questions[this.round].answer,
+      value: this.questions[this.round - 1].answer,
       submittedBy: "computer"
     });
 
