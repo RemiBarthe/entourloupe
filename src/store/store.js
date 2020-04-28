@@ -51,48 +51,34 @@ export const store = new Vuex.Store({
         },
         setQuestions({ commit }, payload) {
             const idRoom = payload.toString();
-            //Cherche dans la BDD:Table (countQuestions) => Valeur de sortie count:
+            let countQuestions = 0;
+
             db.collection("countQuestions").doc("0").get().then(doc =>{
-                let dataSize = doc.data()
-                //récuperer la data : Variable.NomAttribut
-                let lenQuestion = dataSize.count
-                
+                let dataSize = doc.data();
+                let idQuestions = [];
+                let randomizeQuestions = [];
+                let randomize = 0;
+                let countIdQuestions = idQuestions.length;
 
-                //let questionsArray = []
-                //querySnapshot.forEach(function (doc) {
-                    //db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
-                    //let question = doc.data()
-                    //question.id = doc.id
+                countQuestions = dataSize.count;
+
+                for (let i = 0; i < countQuestions ; i++){
+                    idQuestions.push(i);
+                }
+
+                for(let n = 0; n < 5; n++){
+                    randomize = Math.floor(Math.random() * countIdQuestions--); 
+                    let questionSplice = idQuestions.splice(randomize, 1);
                     
-                    //questionsArray.push(question)
-               // })
-                //commit(SET_QUESTIONS, questionsArray)
-                let questionsArray =[]
-
-                for (let i = 0; i < 5; i ++ ){ //position
-                const randomize = Math.floor(Math.random() * lenQuestion); // Valeur:10 à enlever | il faut récup taille de l'appel
-                console.log(randomize)
-                db.collection("questions").doc(""+randomize).get().then(doc=> { 
-
-                    db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
-                    let question = doc.data()
-                    //question.id = doc.id
-                    questionsArray.push(question)
-                    })  
-            }
-            commit(SET_QUESTIONS, questionsArray)
+                    db.collection("questions").doc(questionSplice.toString()).get().then(doc=> { 
+                        db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
+                        let question = doc.data()
+                        randomizeQuestions.push(question)
+                    })
+                }
+                commit(SET_QUESTIONS, randomizeQuestions)
             })
-        },
-        testRandomize(){
-
-            let rngTab=[];
-            for (let i = 0; i < 5; i ++ ){
-                const randomize = Math.floor(Math.random() * 10);
-                rngTab.push(randomize)
-            }
-            // faire un tableau i:position, j:valeur qui compare pour chaque position la valeur et si valeur = alors math.random
-            console.log(rngTab)
-
+            
         },
         getQuestions({ commit }, payload) {
             const idRoom = payload.toString()
