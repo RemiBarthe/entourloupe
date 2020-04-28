@@ -72,7 +72,6 @@ export const store = new Vuex.Store({
                 let questionsArray = []
                 querySnapshot.forEach(function (doc) {
                     let question = doc.data()
-                    question.id = doc.id
                     questionsArray.push(question)
                 })
 
