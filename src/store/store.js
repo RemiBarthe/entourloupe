@@ -22,9 +22,6 @@ export const store = new Vuex.Store({
         questions: [],
         showScore: false
     },
-    getters: {
-
-    },
     actions: {
         joinRoom({ commit }, payload) {
             const idRoom = payload.idRoom.toString()
@@ -54,16 +51,32 @@ export const store = new Vuex.Store({
         },
         setQuestions({ commit }, payload) {
             const idRoom = payload.toString()
-            db.collection("questions").get().then(function (querySnapshot) {
-                let questionsArray = []
-                querySnapshot.forEach(function (doc) {
-                    db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
-                    let question = doc.data()
-                    question.id = doc.id
-                    questionsArray.push(question)
-                })
+            let countQuestions = 0
 
-                commit(SET_QUESTIONS, questionsArray)
+            db.collection("countQuestions").doc("0").get().then(doc => {
+                let dataSize = doc.data()
+                let idQuestions = []
+                let randomizeQuestions = []
+                let randomize = 0
+                let countIdQuestions = idQuestions.length
+
+                countQuestions = dataSize.count
+
+                for (let i = 0; i < countQuestions; i++) {
+                    idQuestions.push(i)
+                }
+
+                for (let n = 0; n < 5; n++) {
+                    randomize = Math.floor(Math.random() * countIdQuestions--)
+                    let questionSplice = idQuestions.splice(randomize, 1)
+
+                    db.collection("questions").doc(questionSplice.toString()).get().then(doc => {
+                        db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
+                        let question = doc.data()
+                        randomizeQuestions.push(question)
+                    })
+                }
+                commit(SET_QUESTIONS, randomizeQuestions)
             })
         },
         getQuestions({ commit }, payload) {
