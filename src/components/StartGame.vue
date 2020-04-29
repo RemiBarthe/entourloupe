@@ -1,8 +1,10 @@
 <template>
   <v-container class="container-start">
-    <v-card class="mx-auto" max-width="500">
+    <h1 class="text-center titre-cosmos">COSMOS</h1>
+
+    <v-card class="mx-auto" max-width="500" dark color="#512b58" elevation="4">
       <v-card-title>
-        <h2 class="display-1">Jeu confinement</h2>
+        <h2 class="headline">Créer ou rejoindre une partie</h2>
       </v-card-title>
 
       <v-divider></v-divider>
@@ -23,26 +25,37 @@
       <v-card-text>
         <span class="subheading">Choisis un avatar</span>
 
-        <v-chip-group
-          v-model="avatarSelected"
-          column
-          active-class="primary"
-          mandatory
-        >
-          <v-chip v-for="avatar in avatars" :key="avatar" name="avatar"
+        <v-chip-group v-model="avatarSelected" column color="white" mandatory>
+          <v-chip
+            v-for="avatar in avatars"
+            :key="avatar"
+            name="avatar"
+            class="chip-cosmos"
             ><v-icon>{{ avatar }}</v-icon></v-chip
           >
         </v-chip-group>
       </v-card-text>
 
       <v-card-actions>
-        <v-btn block color="primary" @click="joinRoom" :disabled="!isValid">
+        <v-btn
+          block
+          color="#ea9085"
+          @click="joinRoom"
+          :disabled="!isValid"
+          elevation="0"
+        >
           Créer partie
         </v-btn>
       </v-card-actions>
 
       <v-card-actions>
-        <v-btn block color="primary" @click="joinRoom" :disabled="!isValidRoom">
+        <v-btn
+          block
+          color="#ea9085"
+          @click="joinRoom"
+          :disabled="!isValidRoom"
+          elevation="0"
+        >
           Rejoindre partie
         </v-btn>
       </v-card-actions>
@@ -107,5 +120,18 @@ export default {
   flex-flow: column wrap;
   display: flex;
   justify-content: center;
+}
+.titre-cosmos {
+  color: #fff;
+  font-size: 5rem;
+  letter-spacing: 2.6rem;
+  text-indent: 2.6rem;
+  font-family: Teko, sans-serif;
+  text-shadow: 8px 8px #000;
+  text-transform: uppercase;
+}
+
+.chip-cosmos {
+  background-color: #512b58 !important;
 }
 </style>

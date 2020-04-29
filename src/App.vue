@@ -14,13 +14,12 @@
         :linesDistance="100"
         :moveSpeed="1"
         :hoverEffect="false"
-        hoverMode="grab"
         :clickEffect="false"
         clickMode="false"
       >
       </vue-particles>
       <room v-if="currentUser" />
-      <startGame v-else />
+      <startGame class="container-center" v-else />
     </v-content>
   </v-app>
 </template>
@@ -44,3 +43,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.container-center {
+  position: absolute;
+  top: 0;
+  max-width: 100%;
+}
+</style>
