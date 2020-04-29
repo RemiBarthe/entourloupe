@@ -23,6 +23,12 @@
         Lancer la partie
       </v-btn>
     </v-card-actions>
+
+    <v-card-text v-if="!isValid">
+      <p class="overline">
+        Minimum 2 joueurs pour commencer
+      </p>
+    </v-card-text>
   </v-card>
 </template>
 

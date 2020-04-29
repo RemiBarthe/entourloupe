@@ -66,13 +66,17 @@ export default {
   computed: {
     isValid() {
       if (this.nameUser && !this.idRoom) {
-        return true;
+        if (this.nameUser.trim()) {
+          return true;
+        }
       }
       return false;
     },
     isValidRoom() {
       if (this.nameUser && this.idRoom) {
-        return true;
+        if (this.nameUser.trim() && this.idRoom.trim()) {
+          return true;
+        }
       }
       return false;
     }
