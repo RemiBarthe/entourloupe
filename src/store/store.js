@@ -58,9 +58,10 @@ export const store = new Vuex.Store({
                 let idQuestions = []
                 let randomizeQuestions = []
                 let randomize = 0
-                let countIdQuestions = idQuestions.length
+
 
                 countQuestions = dataSize.count
+                let countIdQuestions = countQuestions
 
                 for (let i = 0; i < countQuestions; i++) {
                     idQuestions.push(i)
@@ -71,7 +72,7 @@ export const store = new Vuex.Store({
                     let questionSplice = idQuestions.splice(randomize, 1)
 
                     db.collection("questions").doc(questionSplice.toString()).get().then(doc => {
-                        db.collection("rooms").doc(idRoom).collection("questions").doc(doc.id).set(doc.data())
+                        db.collection("rooms").doc(idRoom).collection("questions").doc(n.toString()).set(doc.data())
                         let question = doc.data()
                         randomizeQuestions.push(question)
                     })
@@ -87,7 +88,7 @@ export const store = new Vuex.Store({
                     let question = doc.data()
                     questionsArray.push(question)
                 })
-
+                console.log(questionsArray)
                 commit(SET_QUESTIONS, questionsArray)
             })
         },

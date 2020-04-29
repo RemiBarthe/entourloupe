@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="900">
     <v-card-title>
-      <h2 v-if="!gameOver" class="display-1">Question {{ round }}/5</h2>
+      <h2 v-if="!gameOver" class="display-1">Round {{ round }}/5</h2>
 
       <h2 v-else class="display-1">Partie terminée</h2>
     </v-card-title>
@@ -11,6 +11,13 @@
     </v-card-subtitle>
 
     <v-divider></v-divider>
+
+    <v-card-text class="green">
+      <p class="body-1 white--text">
+        La bonne réponse :<br />
+        <span class="font-weight-bold">{{ questions[round - 1].answer }}</span>
+      </p>
+    </v-card-text>
 
     <v-card-text>
       <p class="overline" v-if="!gameOver">
@@ -64,7 +71,7 @@ export default {
     choices: []
   }),
   computed: {
-    ...mapState(["currentRoom", "isHost", "round", "users"]),
+    ...mapState(["currentRoom", "isHost", "round", "users", "questions"]),
     gameOver() {
       return this.round === 5 ? true : false;
     },
@@ -84,7 +91,10 @@ export default {
   created() {
     this.$store.dispatch("setShowScore", true);
     this.users.forEach(user => {
-      this.choices.push({ name: user.name, chose: user.voteFor });
+      this.choices.push({
+        name: user.name,
+        chose: user.voteFor
+      });
     });
   },
   methods: {

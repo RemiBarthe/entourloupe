@@ -8,7 +8,12 @@
       <v-divider></v-divider>
 
       <v-card-text>
-        <v-text-field label="Ton nom" v-model="nameUser" />
+        <v-text-field
+          label="Ton nom"
+          v-model="nameUser"
+          maxlength="20"
+          counter="20"
+        />
       </v-card-text>
 
       <v-card-text>
@@ -61,13 +66,17 @@ export default {
   computed: {
     isValid() {
       if (this.nameUser && !this.idRoom) {
-        return true;
+        if (this.nameUser.trim()) {
+          return true;
+        }
       }
       return false;
     },
     isValidRoom() {
       if (this.nameUser && this.idRoom) {
-        return true;
+        if (this.nameUser.trim() && this.idRoom.trim()) {
+          return true;
+        }
       }
       return false;
     }

@@ -1,12 +1,13 @@
 <template>
   <v-list dense>
     <v-subheader>Liste des joueurs</v-subheader>
-    <v-list-item-group color="primary">
+    <v-list-item-group>
       <v-list-item
         v-for="user in users"
         :key="user.id"
         :class="{ answered: user.answer }"
         inactive
+        v-ripple="false"
       >
         <v-list-item-icon>
           <v-icon v-text="user.avatar"></v-icon>
