@@ -1,5 +1,5 @@
 <template>
-  <v-card dark class="mx-auto" max-width="500" color="#512b58">
+  <v-card dark class="mx-auto" max-width="900" color="#512b58">
     <v-card-title>
       <h2 class="display-1">En attente des joueurs</h2>
     </v-card-title>
@@ -9,14 +9,14 @@
     <v-card-text>
       <p class="body-1">
         Code pour rejoindre la partie :
-        <span class="font-weight-bold"> {{ currentRoom }} </span>
+        <span class="font-weight-bold join-numbers"> {{ currentRoom }} </span>
       </p>
     </v-card-text>
 
     <v-card-actions>
       <v-btn
         v-if="isHost"
-        color="primary"
+        color="#ffa372"
         @click="startGame"
         :disabled="!isValid"
       >
@@ -62,4 +62,7 @@ export default {
 </script>
 
 <style scoped>
+.join-numbers {
+  color: #ffa372;
+}
 </style>
