@@ -18,7 +18,7 @@
         clickMode="false"
       >
       </vue-particles>
-      <room v-if="currentUser" />
+      <room class="container-center" v-if="currentUser" />
       <startGame class="container-center" v-else />
     </v-content>
   </v-app>
@@ -49,5 +49,6 @@ export default {
   position: absolute;
   top: 0;
   max-width: 100%;
+  height: 100vh;
 }
 </style>
