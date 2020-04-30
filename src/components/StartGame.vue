@@ -25,7 +25,13 @@
       <v-card-text>
         <span class="subheading">Choisis un avatar</span>
 
-        <v-chip-group v-model="avatarSelected" column color="white" mandatory>
+        <v-chip-group
+          v-model="avatarSelected"
+          column
+          color="white"
+          mandatory
+          class="avatar-group"
+        >
           <v-chip
             v-for="avatar in avatars"
             :key="avatar"
@@ -39,7 +45,7 @@
       <v-card-actions>
         <v-btn
           block
-          color="#ea9085"
+          color="#ffa372"
           @click="joinRoom"
           :disabled="!isValid"
           elevation="0"
@@ -51,7 +57,7 @@
       <v-card-actions>
         <v-btn
           block
-          color="#ea9085"
+          color="#ffa372"
           @click="joinRoom"
           :disabled="!isValidRoom"
           elevation="0"
@@ -133,5 +139,9 @@ export default {
 
 .chip-cosmos {
   background-color: #512b58 !important;
+}
+
+.avatar-group /deep/ .v-slide-group__content {
+  justify-content: space-between;
 }
 </style>
