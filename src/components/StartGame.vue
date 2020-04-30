@@ -2,7 +2,7 @@
   <v-container class="container-start">
     <h1 class="text-center titre-cosmos">COSMOS</h1>
 
-    <v-card class="mx-auto" max-width="500" dark color="#512b58" elevation="4">
+    <v-card class="mx-auto" max-width="500" dark color="#512b58">
       <v-card-title>
         <h2 class="headline">Créer ou rejoindre une partie</h2>
       </v-card-title>

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="container-start">
-      <v-navigation-drawer permanent absolute>
+      <v-navigation-drawer dark permanent absolute color="#512b58">
         <listUsers />
       </v-navigation-drawer>
 
@@ -97,9 +97,5 @@ export default {
 <style scoped>
 h1 {
   margin-bottom: 50px;
-}
-
-.container-room {
-  margin-left: 256px;
 }
 </style>
