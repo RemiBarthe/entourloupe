@@ -15,12 +15,26 @@
 
     <v-card-text>
       <p class="body-1">
-        Les règles du jeu sont praesent at pretium diam. Pellentesque
-        consectetur risus tellus, quis elementum quam rutrum ut. Mauris vel
-        scelerisque turpis. Quisque tempor varius sagittis. Aliquam sagittis ac
-        nulla ultrices egestas. Praesent gravida magna non turpis malesuada
-        sagittis. Vestibulum elit arcu, venenatis ac dignissim et, bibendum a
-        mauris.
+        Séduire... ? Tromper… ? Bluffer… ? Tous ces mots semblent similaires
+        mais lequel d’entre vous y arrivera le mieux ? Bien entendu, on
+        récompense les personnes cultivées pour ne pas faire de jaloux !
+        <br />
+        <br />
+        Comment jouer au jeu : Le jeu se déroule en 5 rounds, alors attention ça
+        peut aller très vite ! Tous les coups sont permis… Ou presque ! Lisez
+        les questions. Inventez une réponse. Convaincre les autres que votre
+        réponse est la bonne afin qu’ils puissent voter pour celle-ci. Voter
+        pour la véritable réponse qui se cache parmi toutes les réponses.
+        Remporter la partie.
+        <br />
+        <br />
+        Résultat : si des joueurs votent pour la réponse que tu as créée… C’est
+        gagné ! (+1 point) De plus si jamais toi tu votes pour la bonne réponse
+        ! Alors là, c’est le JACKPOOT ! À chaque fois que tu votes pour une
+        bonne réponse tu gagnes deux points bonus pour récompenser ton
+        intelligence supérieure ! Victoire : Le joueur ayant le plus de points
+        gagne la partie ! Alors, prépare-toi à séduire, tromper et bluffer si
+        jamais tu veux être le grand vainqueur !
       </p>
     </v-card-text>
 
