@@ -60,7 +60,7 @@
     </v-item-group>
 
     <v-card-actions>
-      <v-btn color="#ea9085" @click="submitChoice">
+      <v-btn elevation="0" color="#ea9085" @click="submitChoice">
         Choisir
       </v-btn>
     </v-card-actions>

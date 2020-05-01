@@ -30,7 +30,12 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn color="#ea9085" @click="submitAnswer" :disabled="!isValid">
+      <v-btn
+        elevation="0"
+        color="#ea9085"
+        @click="submitAnswer"
+        :disabled="!isValid"
+      >
         Valider votre réponse
       </v-btn>
     </v-card-actions>

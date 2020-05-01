@@ -37,7 +37,8 @@
 
     <v-card-text>
       <v-data-table
-        style="background-color:#512b58"
+        dense
+        class="tab-answer"
         :headers="headers"
         :items="choices"
         hide-default-footer
@@ -45,11 +46,16 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn v-if="isHost && !gameOver" color="#ea9085" @click="nextRound">
+      <v-btn
+        elevation="0"
+        v-if="isHost && !gameOver"
+        color="#ea9085"
+        @click="nextRound"
+      >
         Passer à la prochaine manche
       </v-btn>
 
-      <v-btn v-if="gameOver" color="#ea9085" @click="newGame">
+      <v-btn elevation="0" v-if="gameOver" color="#ea9085" @click="newGame">
         Nouvelle partie
       </v-btn>
     </v-card-actions>
@@ -128,4 +134,11 @@ export default {
 </script>
 
 <style scoped>
+.tab-answer {
+  background-color: #512b58;
+}
+
+.tab-answer /deep/ tbody /deep/ tr:hover:not(.v-data-table__expanded__content) {
+  background: #512b58 !important;
+}
 </style>
