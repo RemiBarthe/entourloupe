@@ -19,13 +19,17 @@
       </p>
     </v-card-text>
 
-    <v-card-text>
-      <p class="overline" v-if="!gameOver">
+    <v-card-text v-if="!gameOver">
+      <p class="overline">
         {{ bestScore.user }} est en tête est avec un score de
         {{ bestScore.score }}
       </p>
+    </v-card-text>
 
-      <p class="overline" v-else>
+    <v-card-text class="text-center" v-else>
+      <v-icon color="#ffa372" x-large>mdi-trophy-variant</v-icon>
+
+      <p class="overline">
         Le gagnant est {{ bestScore.user }} avec un score de
         {{ bestScore.score }}
       </p>
