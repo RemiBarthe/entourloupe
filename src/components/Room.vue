@@ -21,7 +21,7 @@
                 <choose />
               </template>
 
-              <template v-else-if="allChoseAnswer">
+              <template v-else>
                 <score />
               </template>
             </template>
@@ -30,36 +30,6 @@
       </v-row>
     </v-container>
   </v-item-group>
-
-  <!-- <v-container>
-    <v-row class="container-start">
-      <v-navigation-drawer floating permanent dark color="#512b58" height="300">
-        <listUsers />
-      </v-navigation-drawer>
-
-      <template v-if="!round">
-        <waiting />
-      </template>
-
-      <template v-else>
-        <template v-if="!allAnswered">
-          <v-container>
-            <question />
-          </v-container>
-        </template>
-
-        <template v-else>
-          <v-container v-if="!allChoseAnswer">
-            <choose />
-          </v-container>
-
-          <v-container v-else-if="allChoseAnswer">
-            <score />
-          </v-container>
-        </template>
-      </template>
-    </v-row>
-  </v-container> -->
 </template>
 
 <script>
