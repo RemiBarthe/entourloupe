@@ -1,5 +1,37 @@
 <template>
-  <v-container>
+  <v-item-group dark>
+    <v-container>
+      <v-row class="container-cosmos">
+        <v-col md="3" cols="12">
+          <listUsers />
+        </v-col>
+
+        <v-col md="9" cols="12">
+          <template v-if="!round">
+            <waiting />
+          </template>
+
+          <template v-else>
+            <template v-if="!allAnswered">
+              <question />
+            </template>
+
+            <template v-else>
+              <template v-if="!allChoseAnswer">
+                <choose />
+              </template>
+
+              <template v-else-if="allChoseAnswer">
+                <score />
+              </template>
+            </template>
+          </template>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-item-group>
+
+  <!-- <v-container>
     <v-row class="container-start">
       <v-navigation-drawer floating permanent dark color="#512b58" height="300">
         <listUsers />
@@ -27,7 +59,7 @@
         </template>
       </template>
     </v-row>
-  </v-container>
+  </v-container> -->
 </template>
 
 <script>
@@ -93,13 +125,9 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  margin-bottom: 50px;
-}
-
-.container-start {
+.container-cosmos {
+  height: 100vh;
   align-items: center;
   justify-content: center;
-  align-content: center;
 }
 </style>

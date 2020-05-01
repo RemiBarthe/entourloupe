@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="900" v-if="!chose">
+  <v-card color="#512b58" v-if="!chose">
     <v-card-title>
       <h2 class="display-1">Round {{ round }}/5</h2>
     </v-card-title>
@@ -33,7 +33,7 @@
               :value="answer.submittedBy"
             >
               <v-card
-                :color="active ? 'primary' : ''"
+                :color="active ? '#ea9085' : ''"
                 class="d-flex align-center"
                 @click="toggle"
                 height="100%"
@@ -60,7 +60,7 @@
     </v-item-group>
 
     <v-card-actions>
-      <v-btn color="primary" @click="submitChoice">
+      <v-btn color="#ea9085" @click="submitChoice">
         Choisir
       </v-btn>
     </v-card-actions>
@@ -73,7 +73,7 @@
     </v-snackbar>
   </v-card>
 
-  <v-card class="mx-auto" max-width="500" v-else>
+  <v-card color="#512b58" v-else min-height="450">
     <v-card-title>
       <h2 class="headline">Round {{ round }}/5</h2>
     </v-card-title>

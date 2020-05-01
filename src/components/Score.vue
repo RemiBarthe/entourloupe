@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="900">
+  <v-card color="#512b58">
     <v-card-title>
       <h2 v-if="!gameOver" class="display-1">Round {{ round }}/5</h2>
 
@@ -33,6 +33,7 @@
 
     <v-card-text>
       <v-data-table
+        style="background-color:#512b58"
         :headers="headers"
         :items="choices"
         hide-default-footer
@@ -40,11 +41,11 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn v-if="isHost && !gameOver" color="primary" @click="nextRound">
+      <v-btn v-if="isHost && !gameOver" color="#ea9085" @click="nextRound">
         Passer à la prochaine manche
       </v-btn>
 
-      <v-btn v-if="gameOver" color="primary" @click="newGame">
+      <v-btn v-if="gameOver" color="#ea9085" @click="newGame">
         Nouvelle partie
       </v-btn>
     </v-card-actions>

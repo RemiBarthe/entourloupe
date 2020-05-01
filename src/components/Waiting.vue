@@ -1,5 +1,5 @@
 <template>
-  <v-card dark max-width="900" color="#512b58">
+  <v-card dark color="#512b58">
     <v-card-title>
       <h2 class="display-1">En attente des joueurs</h2>
     </v-card-title>
@@ -13,10 +13,21 @@
       </p>
     </v-card-text>
 
+    <v-card-text>
+      <p class="body-1">
+        Les règles du jeu sont praesent at pretium diam. Pellentesque
+        consectetur risus tellus, quis elementum quam rutrum ut. Mauris vel
+        scelerisque turpis. Quisque tempor varius sagittis. Aliquam sagittis ac
+        nulla ultrices egestas. Praesent gravida magna non turpis malesuada
+        sagittis. Vestibulum elit arcu, venenatis ac dignissim et, bibendum a
+        mauris.
+      </p>
+    </v-card-text>
+
     <v-card-actions>
       <v-btn
         v-if="isHost"
-        color="#ffa372"
+        color="#ea9085"
         @click="startGame"
         :disabled="!isValid"
       >
@@ -63,6 +74,6 @@ export default {
 
 <style scoped>
 .join-numbers {
-  color: #ffa372;
+  color: #ea9085;
 }
 </style>

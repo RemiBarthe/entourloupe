@@ -45,7 +45,7 @@
       <v-card-actions>
         <v-btn
           block
-          color="#ffa372"
+          color="#ea9085"
           @click="joinRoom"
           :disabled="!isValid"
           elevation="0"
@@ -57,7 +57,7 @@
       <v-card-actions>
         <v-btn
           block
-          color="#ffa372"
+          color="#ea9085"
           @click="joinRoom"
           :disabled="!isValidRoom"
           elevation="0"
@@ -122,7 +122,7 @@ export default {
 
 <style scoped>
 .container-start {
-  height: 100vh;
+  min-height: 100vh;
   flex-flow: column wrap;
   display: flex;
   justify-content: center;
