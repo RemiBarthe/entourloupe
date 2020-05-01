@@ -1,6 +1,10 @@
 <template>
   <v-container class="container-start">
-    <h1 class="text-center titre-cosmos">COSMOS</h1>
+    <h1 class="text-center titre-cosmos">Cosmono</h1>
+
+    <p class="ss-titre">
+      Le jeu de bluff à jouer entre amis
+    </p>
 
     <v-card class="mx-auto" max-width="500" dark color="#512b58">
       <v-card-title>
@@ -135,6 +139,15 @@ export default {
   font-family: Teko, sans-serif;
   text-shadow: 8px 8px #000;
   text-transform: uppercase;
+}
+
+.ss-titre {
+  color: #fff;
+  text-align: center;
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-top: -15px;
+  margin-bottom: 40px;
 }
 
 .chip-cosmos {
