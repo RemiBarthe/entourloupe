@@ -30,6 +30,7 @@
         color="#ea9085"
         @click="startGame"
         :disabled="!isValid"
+        elevation="0"
       >
         Lancer la partie
       </v-btn>
