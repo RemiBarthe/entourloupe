@@ -1,5 +1,5 @@
 <template>
-  <v-card dark color="#512b58" min-height="450">
+  <v-card dark color="#512b58" :min-height="imageHeight">
     <v-list color="#512b58" dense>
       <v-subheader>Liste des joueurs</v-subheader>
       <v-list-item-group>
@@ -53,7 +53,22 @@ export default {
 
   data: () => ({}),
   computed: {
-    ...mapState(["currentUser", "currentRoom", "users", "isHost", "showScore"])
+    ...mapState(["currentUser", "currentRoom", "users", "isHost", "showScore"]),
+    imageHeight() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return "100";
+        case "sm":
+          return "100";
+        case "md":
+          return "450";
+        case "lg":
+          return "450";
+        case "xl":
+          return "450";
+      }
+      return true;
+    }
   },
   created() {},
   methods: {

@@ -43,7 +43,9 @@ export const store = new Vuex.Store({
             })
 
             db.collection("rooms").doc(idRoom).onSnapshot(querySnapshot => {
-                commit(SET_ROUND, querySnapshot.data().round)
+                if (querySnapshot.data()) {
+                    commit(SET_ROUND, querySnapshot.data().round)
+                }
             })
 
             commit(IS_CURRENT_USER, { id: payload.id, idRoom: payload.idRoom, isHost: payload.isHost })
@@ -88,7 +90,6 @@ export const store = new Vuex.Store({
                     let question = doc.data()
                     questionsArray.push(question)
                 })
-                console.log(questionsArray)
                 commit(SET_QUESTIONS, questionsArray)
             })
         },
