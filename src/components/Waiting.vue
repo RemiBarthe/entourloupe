@@ -1,5 +1,5 @@
 <template>
-  <v-card dark class="mx-auto" max-width="900" color="#512b58">
+  <v-card dark max-width="900" color="#512b58">
     <v-card-title>
       <h2 class="display-1">En attente des joueurs</h2>
     </v-card-title>

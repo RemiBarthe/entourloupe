@@ -23,8 +23,8 @@
       <v-textarea
         v-model="answer"
         auto-grow
-        counter="250"
-        maxlength="250"
+        counter="160"
+        maxlength="160"
         label="Votre réponse"
       ></v-textarea>
     </v-card-text>
@@ -36,7 +36,7 @@
     </v-card-actions>
   </v-card>
 
-  <v-card class="mx-auto" max-width="500" v-else>
+  <v-card class="mx-auto" max-width="900" v-else>
     <v-card-title>
       <h2 class="headline">Round {{ round }}/5</h2>
     </v-card-title>

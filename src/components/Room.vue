@@ -1,14 +1,12 @@
 <template>
   <v-container>
     <v-row class="container-start">
-      <!-- <v-navigation-drawer dark permanent absolute color="#512b58">
+      <v-navigation-drawer floating permanent dark color="#512b58" height="300">
         <listUsers />
-      </v-navigation-drawer> -->
+      </v-navigation-drawer>
 
       <template v-if="!round">
-        <v-container v-if="!round">
-          <waiting />
-        </v-container>
+        <waiting />
       </template>
 
       <template v-else>
@@ -28,25 +26,6 @@
           </v-container>
         </template>
       </template>
-
-      <v-container>
-        <v-bottom-navigation :value="activeBtn" class="mx-auto" dark fixed>
-          <v-btn>
-            <span>Recents</span>
-            <v-icon>mdi-history</v-icon>
-          </v-btn>
-
-          <v-btn>
-            <span>Favorites</span>
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-
-          <v-btn>
-            <span>Nearby</span>
-            <v-icon>mdi-map-marker</v-icon>
-          </v-btn>
-        </v-bottom-navigation>
-      </v-container>
     </v-row>
   </v-container>
 </template>
@@ -57,6 +36,7 @@ import Question from "./Question";
 import Waiting from "./Waiting";
 import Choose from "./Choose";
 import Score from "./Score";
+import listUsers from "./ListUsers";
 
 export default {
   name: "Room",
@@ -66,7 +46,8 @@ export default {
     Question,
     Waiting,
     Choose,
-    Score
+    Score,
+    listUsers
   },
   computed: {
     ...mapState(["currentUser", "currentRoom", "round", "users"]),
@@ -117,6 +98,8 @@ h1 {
 }
 
 .container-start {
-  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
 }
 </style>
