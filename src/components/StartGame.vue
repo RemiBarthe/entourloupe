@@ -137,7 +137,7 @@ export default {
         } else {
           this.checkGameIsStarted = true;
         }
-      }, 300);
+      }, 500);
     }
   }
 };

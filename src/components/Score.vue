@@ -77,6 +77,7 @@ export default {
         sortable: false,
         value: "name"
       },
+      { text: "A écrit", value: "answer", sortable: false },
       { text: "A voté pour", value: "chose", sortable: false }
     ],
     choices: []
@@ -104,6 +105,7 @@ export default {
     this.users.forEach(user => {
       this.choices.push({
         name: user.name,
+        answer: user.answer,
         chose: user.voteFor
       });
     });
