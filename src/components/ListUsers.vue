@@ -18,6 +18,10 @@
             <v-list-item-title v-text="user.name"></v-list-item-title>
           </v-list-item-content>
 
+          <v-list-item-content v-if="!showScore && user.voteFor">
+            <v-list-item-content class="overline">A voté</v-list-item-content>
+          </v-list-item-content>
+
           <v-list-item-content v-if="showScore">
             <v-list-item-content class="overline"
               >Score : {{ user.score }}</v-list-item-content
