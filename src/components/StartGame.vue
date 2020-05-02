@@ -70,6 +70,13 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+
+    <v-snackbar v-model="checkGameIsStarted">
+      La partie est déjà en cours ..
+      <v-btn color="red" text @click="checkGameIsStarted = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -84,7 +91,8 @@ export default {
     idRoom: null,
     avatarSelected: null,
     idUser: Date.now(),
-    avatars: Avatars
+    avatars: Avatars,
+    checkGameIsStarted: false
   }),
   computed: {
     isValid() {
@@ -107,18 +115,29 @@ export default {
   methods: {
     joinRoom() {
       this.$store.dispatch("joinRoom", {
-        id: this.idUser,
-        name: this.nameUser,
-        avatar: this.avatars[this.avatarSelected],
-        idRoom: this.idRoom ? this.idRoom : this.idUser,
+        idRoom: this.idRoom ? this.idRoom.trim() : this.idUser,
         isHost: !this.idRoom
       });
 
-      if (!this.idRoom) {
-        this.$store.dispatch("setQuestions", this.idUser);
-      } else {
-        this.$store.dispatch("getQuestions", this.idRoom);
-      }
+      setTimeout(() => {
+        if (this.$store.state.round === 0) {
+          this.$store.dispatch("addUser", {
+            id: this.idUser,
+            name: this.nameUser,
+            avatar: this.avatars[this.avatarSelected],
+            idRoom: this.idRoom ? this.idRoom.trim() : this.idUser,
+            isHost: !this.idRoom
+          });
+
+          if (!this.idRoom) {
+            this.$store.dispatch("setQuestions", this.idUser);
+          } else {
+            this.$store.dispatch("getQuestions", this.idRoom.trim());
+          }
+        } else {
+          this.checkGameIsStarted = true;
+        }
+      }, 300);
     }
   }
 };

@@ -25,10 +25,23 @@ export const store = new Vuex.Store({
     actions: {
         joinRoom({ commit }, payload) {
             const idRoom = payload.idRoom.toString()
+
+            if (payload.isHost) {
+                db.collection("rooms").doc(idRoom).set({ round: 0 })
+            }
+
+            db.collection("rooms").doc(idRoom).onSnapshot(querySnapshot => {
+                if (querySnapshot.data()) {
+
+                    commit(SET_ROUND, querySnapshot.data().round)
+                }
+            })
+        },
+        addUser({ commit }, payload) {
+            const idRoom = payload.idRoom.toString()
             const idUser = payload.id.toString()
 
             db.collection("rooms").doc(idRoom).collection("users").doc(idUser).set({ name: payload.name, avatar: payload.avatar, answer: "", voteFor: "", score: 0 })
-            db.collection("rooms").doc(idRoom).set({ round: 0 })
 
             db.collection("rooms").doc(idRoom).collection("users").onSnapshot(querySnapshot => {
                 let usersArray = []
@@ -42,14 +55,7 @@ export const store = new Vuex.Store({
                 commit(SET_USERS, usersArray)
             })
 
-            db.collection("rooms").doc(idRoom).onSnapshot(querySnapshot => {
-                if (querySnapshot.data()) {
-                    commit(SET_ROUND, querySnapshot.data().round)
-                }
-            })
-
             commit(IS_CURRENT_USER, { id: payload.id, idRoom: payload.idRoom, isHost: payload.isHost })
-
         },
         setQuestions({ commit }, payload) {
             const idRoom = payload.toString()
