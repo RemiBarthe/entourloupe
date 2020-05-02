@@ -39,7 +39,9 @@ export default {
     StartGame,
     Room
   },
-  created() {},
+  created() {
+    document.title = "COSMONO - Jeu multijoueur gratuit";
+  },
   computed: {
     ...mapState(["currentUser"])
   }
