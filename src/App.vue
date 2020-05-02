@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="bluuue">
     <vue-particles
       color="#ea9085"
       :particleOpacity="0.7"
@@ -52,6 +52,7 @@ export default {
 .container-center {
   position: absolute;
   top: 0;
+  bottom: 0;
   width: 100vw;
   min-height: 100vh;
 }
