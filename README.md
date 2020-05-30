@@ -1,4 +1,7 @@
-# jeu-confinement
+# COSMONO
+
+Url to the game :
+https://cosmono.web.app
 
 ## Project setup
 ```
