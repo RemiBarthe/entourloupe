@@ -11,6 +11,25 @@
         Code pour rejoindre la partie :
         <span class="font-weight-bold peach"> {{ currentRoom }} </span>
       </p>
+
+      <p class="body-1 peach">
+        OU
+      </p>
+
+      <p class="body-1">
+        Partage le lien :
+        <v-btn
+          text
+          fab
+          x-small
+          v-clipboard:copy="urlRoom"
+          v-clipboard:success="showConfirmUrlCopy"
+        >
+          <v-icon>
+            mdi-link-variant
+          </v-icon>
+        </v-btn>
+      </p>
     </v-card-text>
 
     <v-card-text>
@@ -66,6 +85,13 @@
         Minimum 2 joueurs pour commencer
       </p>
     </v-card-text>
+
+    <v-snackbar dark color="#512b58" v-model="urlCopy">
+      L'url a bien été copiée
+      <v-btn color="#ea9085" text @click="urlCopy = false">
+        Fermer
+      </v-btn>
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -74,8 +100,9 @@ import { mapState } from "vuex";
 
 export default {
   name: "Waiting",
-
-  data: () => ({}),
+  data: () => ({
+    urlCopy: false
+  }),
   computed: {
     ...mapState(["currentRoom", "isHost", "round", "users"]),
     isValid() {
@@ -84,6 +111,9 @@ export default {
       }
 
       return false;
+    },
+    urlRoom() {
+      return "entourloupe.cosmono.fr?r=" + this.currentRoom;
     }
   },
   methods: {
@@ -93,6 +123,9 @@ export default {
         round: nextRound,
         idRoom: this.currentRoom
       });
+    },
+    showConfirmUrlCopy() {
+      this.urlCopy = true;
     }
   }
 };

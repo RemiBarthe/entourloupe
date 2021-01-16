@@ -74,7 +74,7 @@
     <v-snackbar v-model="checkGameIsStarted">
       La partie est déjà en cours ..
       <v-btn color="red" text @click="checkGameIsStarted = false">
-        Close
+        Fermer
       </v-btn>
     </v-snackbar>
   </v-container>
@@ -94,6 +94,11 @@ export default {
     avatars: Avatars,
     checkGameIsStarted: false
   }),
+  mounted() {
+    const uri = window.location.search.substring(1);
+    const params = new URLSearchParams(uri);
+    this.idRoom = params.get("r") ? params.get("r") : this.idRoom;
+  },
   computed: {
     isValid() {
       if (this.nameUser && !this.idRoom) {
