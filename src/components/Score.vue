@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="900">
+  <v-card color="#512b58">
     <v-card-title>
       <h2 v-if="!gameOver" class="display-1">Round {{ round }}/5</h2>
 
@@ -19,13 +19,17 @@
       </p>
     </v-card-text>
 
-    <v-card-text>
-      <p class="overline" v-if="!gameOver">
+    <v-card-text v-if="!gameOver">
+      <p class="overline">
         {{ bestScore.user }} est en tête est avec un score de
         {{ bestScore.score }}
       </p>
+    </v-card-text>
 
-      <p class="overline" v-else>
+    <v-card-text class="text-center" v-else>
+      <v-icon color="#ffa372" x-large>mdi-trophy-variant</v-icon>
+
+      <p class="overline">
         Le gagnant est {{ bestScore.user }} avec un score de
         {{ bestScore.score }}
       </p>
@@ -33,6 +37,8 @@
 
     <v-card-text>
       <v-data-table
+        dense
+        class="tab-answer"
         :headers="headers"
         :items="choices"
         hide-default-footer
@@ -40,11 +46,16 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn v-if="isHost && !gameOver" color="primary" @click="nextRound">
+      <v-btn
+        elevation="0"
+        v-if="isHost && !gameOver"
+        color="#ea9085"
+        @click="nextRound"
+      >
         Passer à la prochaine manche
       </v-btn>
 
-      <v-btn v-if="gameOver" color="primary" @click="newGame">
+      <v-btn elevation="0" v-if="gameOver" color="#ea9085" @click="newGame">
         Nouvelle partie
       </v-btn>
     </v-card-actions>
@@ -66,6 +77,7 @@ export default {
         sortable: false,
         value: "name"
       },
+      { text: "A écrit", value: "answer", sortable: false },
       { text: "A voté pour", value: "chose", sortable: false }
     ],
     choices: []
@@ -93,6 +105,7 @@ export default {
     this.users.forEach(user => {
       this.choices.push({
         name: user.name,
+        answer: user.answer,
         chose: user.voteFor
       });
     });
@@ -123,4 +136,11 @@ export default {
 </script>
 
 <style scoped>
+.tab-answer {
+  background-color: #512b58;
+}
+
+.tab-answer /deep/ tbody /deep/ tr:hover:not(.v-data-table__expanded__content) {
+  background: #512b58 !important;
+}
 </style>

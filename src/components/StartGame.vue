@@ -1,8 +1,14 @@
 <template>
   <v-container class="container-start">
-    <v-card class="mx-auto" max-width="500">
+    <h1 class="text-center titre-cosmos">Cosmono</h1>
+
+    <p class="ss-titre">
+      Le jeu de bluff à jouer entre amis
+    </p>
+
+    <v-card class="mx-auto" max-width="500" dark color="#512b58">
       <v-card-title>
-        <h2 class="display-1">Jeu confinement</h2>
+        <h2 class="headline">Créer ou rejoindre une partie</h2>
       </v-card-title>
 
       <v-divider></v-divider>
@@ -26,27 +32,51 @@
         <v-chip-group
           v-model="avatarSelected"
           column
-          active-class="primary"
+          color="white"
           mandatory
+          class="avatar-group"
         >
-          <v-chip v-for="avatar in avatars" :key="avatar" name="avatar"
+          <v-chip
+            v-for="avatar in avatars"
+            :key="avatar"
+            name="avatar"
+            class="chip-cosmos"
             ><v-icon>{{ avatar }}</v-icon></v-chip
           >
         </v-chip-group>
       </v-card-text>
 
       <v-card-actions>
-        <v-btn block color="primary" @click="joinRoom" :disabled="!isValid">
+        <v-btn
+          block
+          color="#ea9085"
+          @click="joinRoom"
+          :disabled="!isValid"
+          elevation="0"
+        >
           Créer partie
         </v-btn>
       </v-card-actions>
 
       <v-card-actions>
-        <v-btn block color="primary" @click="joinRoom" :disabled="!isValidRoom">
+        <v-btn
+          block
+          color="#ea9085"
+          @click="joinRoom"
+          :disabled="!isValidRoom"
+          elevation="0"
+        >
           Rejoindre partie
         </v-btn>
       </v-card-actions>
     </v-card>
+
+    <v-snackbar v-model="checkGameIsStarted">
+      La partie est déjà en cours ..
+      <v-btn color="red" text @click="checkGameIsStarted = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -61,7 +91,8 @@ export default {
     idRoom: null,
     avatarSelected: null,
     idUser: Date.now(),
-    avatars: Avatars
+    avatars: Avatars,
+    checkGameIsStarted: false
   }),
   computed: {
     isValid() {
@@ -84,18 +115,29 @@ export default {
   methods: {
     joinRoom() {
       this.$store.dispatch("joinRoom", {
-        id: this.idUser,
-        name: this.nameUser,
-        avatar: this.avatars[this.avatarSelected],
-        idRoom: this.idRoom ? this.idRoom : this.idUser,
+        idRoom: this.idRoom ? this.idRoom.trim() : this.idUser,
         isHost: !this.idRoom
       });
 
-      if (!this.idRoom) {
-        this.$store.dispatch("setQuestions", this.idUser);
-      } else {
-        this.$store.dispatch("getQuestions", this.idRoom);
-      }
+      setTimeout(() => {
+        if (this.$store.state.round === 0) {
+          this.$store.dispatch("addUser", {
+            id: this.idUser,
+            name: this.nameUser,
+            avatar: this.avatars[this.avatarSelected],
+            idRoom: this.idRoom ? this.idRoom.trim() : this.idUser,
+            isHost: !this.idRoom
+          });
+
+          if (!this.idRoom) {
+            this.$store.dispatch("setQuestions", this.idUser);
+          } else {
+            this.$store.dispatch("getQuestions", this.idRoom.trim());
+          }
+        } else {
+          this.checkGameIsStarted = true;
+        }
+      }, 500);
     }
   }
 };
@@ -103,9 +145,35 @@ export default {
 
 <style scoped>
 .container-start {
-  height: 100vh;
+  min-height: 100vh;
   flex-flow: column wrap;
   display: flex;
   justify-content: center;
+}
+.titre-cosmos {
+  color: #fff;
+  font-size: 5rem;
+  letter-spacing: 2.6rem;
+  text-indent: 2.6rem;
+  font-family: Teko, sans-serif;
+  text-shadow: 8px 8px #000;
+  text-transform: uppercase;
+}
+
+.ss-titre {
+  color: #fff;
+  text-align: center;
+  font-style: italic;
+  font-size: 1.2rem;
+  margin-top: -15px;
+  margin-bottom: 40px;
+}
+
+.chip-cosmos {
+  background-color: #512b58 !important;
+}
+
+.avatar-group /deep/ .v-slide-group__content {
+  justify-content: space-between;
 }
 </style>

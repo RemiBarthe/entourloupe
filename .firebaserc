@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "limitelimite-42ab2"
+  },
+  "targets": {
+    "limitelimite-42ab2": {
+      "hosting": {
+        "cosmono": [
+          "cosmono"
+        ]
+      }
+    }
   }
 }

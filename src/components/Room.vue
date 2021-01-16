@@ -1,55 +1,55 @@
 <template>
-  <v-container>
-    <v-row class="container-start">
-      <v-navigation-drawer permanent absolute>
-        <listUsers />
-      </v-navigation-drawer>
+  <v-item-group dark>
+    <v-container>
+      <v-row class="container-cosmos">
+        <v-col md="3" cols="12">
+          <listUsers />
+        </v-col>
 
-      <template v-if="!round">
-        <v-container v-if="!round" class="container-room">
-          <waiting />
-        </v-container>
-      </template>
+        <v-col md="9" cols="12">
+          <template v-if="!round">
+            <waiting />
+          </template>
 
-      <template v-else>
-        <template v-if="!allAnswered">
-          <v-container class="container-room">
-            <question />
-          </v-container>
-        </template>
+          <template v-else>
+            <template v-if="!allAnswered">
+              <question />
+            </template>
 
-        <template v-else>
-          <v-container v-if="!allChoseAnswer" class="container-room">
-            <choose />
-          </v-container>
+            <template v-else>
+              <template v-if="!allChoseAnswer">
+                <choose />
+              </template>
 
-          <v-container v-else-if="allChoseAnswer" class="container-room">
-            <score />
-          </v-container>
-        </template>
-      </template>
-    </v-row>
-  </v-container>
+              <template v-else>
+                <score />
+              </template>
+            </template>
+          </template>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-item-group>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import ListUsers from "./ListUsers";
 import Question from "./Question";
 import Waiting from "./Waiting";
 import Choose from "./Choose";
 import Score from "./Score";
+import listUsers from "./ListUsers";
 
 export default {
   name: "Room",
 
   data: () => ({}),
   components: {
-    ListUsers,
     Question,
     Waiting,
     Choose,
-    Score
+    Score,
+    listUsers
   },
   computed: {
     ...mapState(["currentUser", "currentRoom", "round", "users"]),
@@ -95,11 +95,9 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  margin-bottom: 50px;
-}
-
-.container-room {
-  margin-left: 256px;
+.container-cosmos {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
 }
 </style>

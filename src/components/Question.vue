@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="900" v-if="!answered">
+  <v-card v-if="!answered" color="#512b58">
     <v-card-title>
       <h2 class="headline">Round {{ round }}/5</h2>
     </v-card-title>
@@ -23,20 +23,25 @@
       <v-textarea
         v-model="answer"
         auto-grow
-        counter="250"
-        maxlength="250"
+        counter="160"
+        maxlength="160"
         label="Votre réponse"
       ></v-textarea>
     </v-card-text>
 
     <v-card-actions>
-      <v-btn color="primary" @click="submitAnswer" :disabled="!isValid">
+      <v-btn
+        elevation="0"
+        color="#ea9085"
+        @click="submitAnswer"
+        :disabled="!isValid"
+      >
         Valider votre réponse
       </v-btn>
     </v-card-actions>
   </v-card>
 
-  <v-card class="mx-auto" max-width="500" v-else>
+  <v-card color="#512b58" v-else min-height="450">
     <v-card-title>
       <h2 class="headline">Round {{ round }}/5</h2>
     </v-card-title>
