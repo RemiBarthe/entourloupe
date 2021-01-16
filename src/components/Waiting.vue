@@ -8,27 +8,23 @@
 
     <v-card-text>
       <p class="body-1">
-        Code pour rejoindre la partie :
+        <span class="body-1">
+          Partage le lien :
+          <v-btn
+            class="peach"
+            text
+            fab
+            x-small
+            v-clipboard:copy="urlRoom"
+            v-clipboard:success="showConfirmUrlCopy"
+          >
+            <v-icon> mdi-link-variant </v-icon>
+          </v-btn>
+        </span>
+        <span class="body-1"> ou </span>
+
+        utilise le code pour rejoindre la partie :
         <span class="font-weight-bold peach"> {{ currentRoom }} </span>
-      </p>
-
-      <p class="body-1 peach">
-        OU
-      </p>
-
-      <p class="body-1">
-        Partage le lien :
-        <v-btn
-          text
-          fab
-          x-small
-          v-clipboard:copy="urlRoom"
-          v-clipboard:success="showConfirmUrlCopy"
-        >
-          <v-icon>
-            mdi-link-variant
-          </v-icon>
-        </v-btn>
       </p>
     </v-card-text>
 
@@ -81,16 +77,12 @@
     </v-card-actions>
 
     <v-card-text v-if="!isValid">
-      <p class="overline">
-        Minimum 2 joueurs pour commencer
-      </p>
+      <p class="overline">Minimum 2 joueurs pour commencer</p>
     </v-card-text>
 
     <v-snackbar dark color="#512b58" v-model="urlCopy">
       L'url a bien été copiée
-      <v-btn color="#ea9085" text @click="urlCopy = false">
-        Fermer
-      </v-btn>
+      <v-btn color="#ea9085" text @click="urlCopy = false"> Fermer </v-btn>
     </v-snackbar>
   </v-card>
 </template>
@@ -101,7 +93,7 @@ import { mapState } from "vuex";
 export default {
   name: "Waiting",
   data: () => ({
-    urlCopy: false
+    urlCopy: false,
   }),
   computed: {
     ...mapState(["currentRoom", "isHost", "round", "users"]),
@@ -114,20 +106,20 @@ export default {
     },
     urlRoom() {
       return "entourloupe.cosmono.fr?r=" + this.currentRoom;
-    }
+    },
   },
   methods: {
     startGame() {
       const nextRound = this.round + 1;
       this.$store.dispatch("setRound", {
         round: nextRound,
-        idRoom: this.currentRoom
+        idRoom: this.currentRoom,
       });
     },
     showConfirmUrlCopy() {
       this.urlCopy = true;
-    }
-  }
+    },
+  },
 };
 </script>
 
