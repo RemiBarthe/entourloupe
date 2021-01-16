@@ -1,7 +1,7 @@
-# COSMONO
+# Entourloupe
 
 Url to the game :
-https://cosmono.web.app
+https://entourloupe.cosmono.fr
 
 ## Project setup
 ```

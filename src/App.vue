@@ -40,7 +40,7 @@ export default {
     Room
   },
   created() {
-    document.title = "COSMONO - Jeu multijoueur gratuit";
+    document.title = "ENTOURLOUPE - Jeu multijoueur gratuit";
   },
   computed: {
     ...mapState(["currentUser"])
