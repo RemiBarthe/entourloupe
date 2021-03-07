@@ -1,6 +1,6 @@
 <template>
   <v-container class="container-start">
-    <h1 class="text-center titre-cosmos">Cosmono</h1>
+    <h1 class="text-center titre-cosmos">Entourloupe</h1>
 
     <p class="ss-titre">
       Le jeu de bluff à jouer entre amis
@@ -74,7 +74,7 @@
     <v-snackbar v-model="checkGameIsStarted">
       La partie est déjà en cours ..
       <v-btn color="red" text @click="checkGameIsStarted = false">
-        Close
+        Fermer
       </v-btn>
     </v-snackbar>
   </v-container>
@@ -94,6 +94,11 @@ export default {
     avatars: Avatars,
     checkGameIsStarted: false
   }),
+  mounted() {
+    const uri = window.location.search.substring(1);
+    const params = new URLSearchParams(uri);
+    this.idRoom = params.get("r") ? params.get("r") : this.idRoom;
+  },
   computed: {
     isValid() {
       if (this.nameUser && !this.idRoom) {
@@ -151,6 +156,7 @@ export default {
   justify-content: center;
 }
 .titre-cosmos {
+  width: 100%;
   color: #fff;
   font-size: 5rem;
   letter-spacing: 2.6rem;
@@ -175,5 +181,25 @@ export default {
 
 .avatar-group /deep/ .v-slide-group__content {
   justify-content: space-between;
+}
+
+@media screen and (min-width: 725px) and (max-width: 1280px) {
+  .titre-cosmos {
+    font-size: 3rem;
+    letter-spacing: 1.56rem;
+    text-indent: 1.56rem;
+  }
+}
+
+@media screen and (max-width: 725px) {
+  .titre-cosmos {
+    font-size: 1.56rem;
+    letter-spacing: 0.94rem;
+    text-indent: 0.94rem;
+  }
+
+  .ss-titre {
+    margin-top: 0;
+  }
 }
 </style>

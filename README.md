@@ -1,4 +1,7 @@
-# jeu-confinement
+# Entourloupe
+
+Url to the game :
+https://entourloupe.cosmono.fr
 
 ## Project setup
 ```
